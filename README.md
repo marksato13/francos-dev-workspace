@@ -26,9 +26,11 @@ Luego, desde la raíz del workspace:
 claude
 ```
 
-La primera vez, Claude Code pedirá aprobar el servidor MCP declarado en
-`.mcp.json` (Jira). El OAuth de Atlassian caduca: si las herramientas
-`mcp__jira__*` desaparecen, hay que reautenticar con `/mcp`.
+El servidor MCP de Jira ya está configurado **a nivel de usuario**, así que está
+disponible en cualquier carpeta; este repo no lo declara para no duplicarlo. El
+OAuth de Atlassian caduca cada cierto tiempo: si las herramientas `mcp__jira__*`
+desaparecen, hay que reautenticar con `/mcp`. No significa que se haya perdido el
+acceso.
 
 ## Comandos
 
@@ -68,7 +70,6 @@ herramientas: la restricción no depende solo de patrones de Bash.
 ```
 CLAUDE.md                     instrucciones raíz, siempre en contexto
 .claude/settings.json         matriz de permisos (deny gana sobre allow)
-.mcp.json                     servidor MCP de Jira
 .claude/agents/               4 agentes
 .claude/commands/             6 comandos
 .claude/skills/               2 skills
@@ -104,12 +105,18 @@ Matriz completa en [`orchestration/task-lifecycle.md`](orchestration/task-lifecy
 
 ## Verificar la configuración
 
-```bash
-claude                      # luego, dentro:
-/agents                     # deben aparecer los 4
-/mcp                        # jira conectado
-/permissions                # revisar allow / ask / deny
+Desde la raíz del workspace, dentro de `claude`:
+
 ```
+/agents        deben aparecer los 4 agentes del proyecto
+/mcp           jira debe estar conectado (si no, reautenticar)
+/permissions   revisar allow / ask / deny
+/task-inbox    el flujo arranca aqui
+```
+
+**Los comandos `/task-*` y los agentes solo existen si arrancaste Claude Code
+dentro de esta carpeta.** La configuración de `.claude/` es por proyecto: si
+abres Claude en el repo del backend o en la carpeta padre, no aparecerán.
 
 Que Claude Code arranque sin errores **no prueba** que los permisos sean
 correctos. Revisa la lista `deny` de `.claude/settings.json`.
