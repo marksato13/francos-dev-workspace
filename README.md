@@ -108,11 +108,22 @@ Matriz completa en [`orchestration/task-lifecycle.md`](orchestration/task-lifecy
 Desde la raíz del workspace, dentro de `claude`:
 
 ```
-/agents        deben aparecer los 4 agentes del proyecto
-/mcp           jira debe estar conectado (si no, reautenticar)
-/permissions   revisar allow / ask / deny
-/task-inbox    el flujo arranca aqui
+/           escribe solo la barra: los 6 comandos /task-* deben aparecer
+/mcp        jira debe estar conectado (si no, reautenticar)
+/permissions  revisar allow / ask / deny
+/context    muestra que CLAUDE.md se cargo
 ```
+
+**El wizard `/agents` se eliminó** en las versiones recientes de Claude Code. Para
+comprobar que los 4 subagentes se cargaron, pídelo en lenguaje natural:
+
+```
+lista los subagentes que tienes disponibles en este proyecto
+```
+
+Deben salir `jira-task-auditor`, `backend-implementer`, `backend-reviewer` y
+`frontend-contract-reader`. Los subagentes se editan directamente en
+`.claude/agents/`, no por wizard.
 
 **Los comandos `/task-*` y los agentes solo existen si arrancaste Claude Code
 dentro de esta carpeta.** La configuración de `.claude/` es por proyecto: si
