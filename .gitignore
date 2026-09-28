@@ -1,0 +1,18 @@
+# Nunca versionar secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Estado local de Claude Code (por maquina, no compartido)
+.claude/settings.local.json
+.claude/.credentials.json
+
+# Ruido del sistema y editores
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+scratch/

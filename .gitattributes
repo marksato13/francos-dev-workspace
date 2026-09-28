@@ -1,0 +1,4 @@
+# Normaliza finales de linea: LF en el repo, nativo en el worktree
+* text=auto eol=lf
+*.md text eol=lf
+*.json text eol=lf
