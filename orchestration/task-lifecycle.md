@@ -71,6 +71,34 @@ Además, los agentes de solo lectura (`jira-task-auditor`, `backend-reviewer`,
 `frontend-contract-reader`) **no tienen las herramientas `Edit` ni `Write` en su
 lista blanca**, así que la restricción no depende solo de los patrones de Bash.
 
+## Borrar ramas en un repo compartido
+
+El backend lo tocan **5 personas**, no las 3 que muestra Jira. Antes de borrar
+cualquier rama hay que comprobar dos cosas, en este orden:
+
+1. **Que su contenido esta integrado.** Con `git cherry`, que compara por
+   contenido y no por SHA (un squash merge cambia el SHA):
+
+   ```bash
+   git cherry origin/develop origin/<rama>   # '+' = commit NO integrado
+   ```
+
+   No uses `git diff origin/develop...origin/<rama>`: eso muestra lo que la rama
+   aporto desde el punto de divergencia, no lo que falta en `develop`.
+
+2. **Quien la escribio.**
+
+   ```bash
+   git log origin/develop..origin/<rama> --format='%an %s'
+   ```
+
+**Nunca borres una rama con commits sin integrar que no sean tuyos.** Si no tiene
+PR detras, el borrado es irrecuperable: reportalo y que lo decida su autor.
+
+Una rama propia con PR cerrado si se puede borrar: GitHub conserva
+`refs/pull/<n>/head` de forma permanente, asi que el commit se recupera con
+`git fetch origin refs/pull/<n>/head`. Verificalo **antes** de borrar, no despues.
+
 ## Definición de terminado
 
 Una subtarea no está terminada porque compile. Debe:

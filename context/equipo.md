@@ -46,6 +46,39 @@ Consecuencia operativa: **no delego la verificación.** `/task-verify` es
 obligatorio antes de abrir cualquier PR, y las pruebas del comportamiento nuevo
 entran en el mismo PR que el código.
 
+## El equipo real es mayor que el de Jira
+
+Las subtareas de Jira solo muestran 3 personas, pero el historial de Git del
+backend tiene **5 contribuyentes**. Descubierto el 2026-09-28 auditando ramas:
+
+| Persona | Aparece en Jira | Aparece en Git |
+| --- | --- | --- |
+| Ruben Mark Salazar Tocas (yo) | Si | Si |
+| Pamela Vallejos Cotrina | Si (prototipos) | -- |
+| Roxwell Jesus Ramos Turpo | Si (frontend) | -- |
+| **Piero Lanche** | no auditado | **Si** -- `chore/health-endpoint`, `.gitattributes`, `RolesGuard` |
+| **Andr3sChavarr1** (Jorge Chavarri) | no auditado | **Si** -- `feature/OFT0-417-gestionar-plan-estrategico` |
+
+Piero es el autor de buena parte de la infraestructura de calidad que hoy
+condiciona mis PR: `.gitattributes` (PR #14) y `RolesGuard` denegando por defecto
+(PR #12).
+
+**Consecuencia operativa:** el repositorio es compartido por mas gente de la que
+el tablero sugiere. Antes de borrar una rama, prunar o reescribir historia, hay
+que comprobar el autor.
+
+### Ramas ajenas sin fusionar (2026-09-28)
+
+No tocar. Tienen trabajo real sin entregar y **sin PR que lo respalde**, asi que
+borrarlas seria irrecuperable:
+
+| Rama | Autor | Commits sin integrar |
+| --- | --- | --- |
+| `chore/health-endpoint` | Piero Lanche | 2 |
+| `feature/OFT0-417-gestionar-plan-estrategico` | Andr3sChavarr1 | 1 |
+
+`OFT0-417` es el objetivo 2 del Sprint 1 (modulo BSC).
+
 ## Límites de mi trabajo
 
 - **Edito:** `backend-monolito-francos`.

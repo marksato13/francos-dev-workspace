@@ -64,6 +64,17 @@ Ese trabajo:
 se rebasa. Lo que se conserva es el conocimiento, no el diff. Ver
 `specs/OFT0-345-gestionar-producto.md`.
 
+**Ejecutado el 2026-09-28:** la rama `feature/OFT0-55-gestionar-producto` se borro
+en local y en remoto. El commit `854f76e` **sigue siendo recuperable** porque
+GitHub conserva el ref del PR cerrado de forma permanente:
+
+```bash
+git ls-remote origin refs/pull/6/head   # -> 854f76e3c854ad7c1dd11a8caeedacfad5e5589b
+git fetch origin refs/pull/6/head       # para recuperarlo si hiciera falta
+```
+
+Las 7 ramas ya fusionadas y las 2 ramas ajenas sin fusionar **no se tocaron**.
+
 ## Siguiente paso
 
 `OFT0-345` — es la primera por rank, su HU es la única en curso, y desbloquea

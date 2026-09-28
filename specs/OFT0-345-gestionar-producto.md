@@ -12,7 +12,7 @@
 | HU padre | `OFT0-249` — HU-A-007 Gestionar producto (**En curso**) |
 | Épica | `OFT0-310` — Módulo de Gestión de Ventas — Catálogo de Productos |
 | Sprint | Sprint 1 (activo, vencido el 2026-09-25) |
-| Rama | *sin crear* — se creará `feature/OFT0-345-gestionar-producto` |
+| Rama | *sin crear* — se creará `feature/OFT0-345-gestionar-producto` desde `develop` en `b0c8656` |
 | Clave anterior (muerta) | `OFT0-55` → devuelve 404 |
 | Fecha de auditoría | 2026-09-28 |
 | Estado de la ficha | **auditoría parcial** — ver decisiones pendientes |
@@ -47,8 +47,11 @@ verificables:
   `6  OFT0-55: Gestionar producto  feature/OFT0-55-gestionar-producto  CLOSED  2026-08-30T21:21:00Z`.
   Ese trabajo (25 archivos, +1461/-82) **no entró en `develop`**.
 
-- **La rama vieja está 26 commits por detrás.**
+- **La rama vieja estaba 26 commits por detrás y ya se eliminó.**
   `git rev-list --left-right --count origin/develop...feature/OFT0-55-gestionar-producto` → `26  1`.
+  Borrada en local y remoto el 2026-09-28. El commit `854f76e` sigue accesible en
+  `refs/pull/6/head`, porque GitHub conserva los refs de los PR cerrados:
+  `git fetch origin refs/pull/6/head`.
 
 - **Parte de la lógica de SKU sí está en `develop`.** Aunque el PR #6 se cerró,
   `producto-presentacion.utils.ts:8` existe en `origin/develop` y genera el SKU con
