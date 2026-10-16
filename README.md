@@ -36,6 +36,7 @@ acceso.
 
 | Comando | Qué hace | Agente |
 | --- | --- | --- |
+| **`/estado`** | **Donde estoy: agentes de Orca, automatizaciones, backend, PRs y Jira** | principal |
 | **`/sync`** | **Reconcilia Jira, GitHub y las fichas. Avisa si me quitaron una tarea** | principal |
 | `/task-inbox` | Lista y prioriza mis subtareas backend por rank | principal |
 | `/task-audit OFT0-345` | Audita la subtarea, su HU padre y el código real | `jira-task-auditor` |
@@ -81,6 +82,8 @@ planificacion/                backlog asignado y estado del sprint
 specs/TEMPLATE.md             plantilla de ficha
 specs/OFT0-XXX-slug.md        una ficha por incidencia
 orchestration/                ciclo de vida y matriz de bloqueos
+herramientas/estado.ps1       vista unica Orca + Git + GitHub, sin IA
+context/orca.md               configuracion de Orca y frontera de autonomia
 ```
 
 ## Reglas que el workspace hace cumplir
@@ -138,6 +141,23 @@ correctos. Revisa la lista `deny` de `.claude/settings.json`.
 Orca 1.4.218 tiene registrados el backend (base `origin/develop`) y este workspace, y
 tres automatizaciones de vigilancia **creadas desactivadas**. La frontera de autonomia es:
 automatico hasta la rama, supervisado desde el commit.
+
+## Ver donde estoy
+
+```powershell
+pwsh -NoProfile -File herramientas/estado.ps1
+```
+
+Vista unica de Orca + Git + GitHub: que agente corre en cada espacio, si las
+automatizaciones estan encendidas, cuanto atraso lleva `develop` y como va el CI de mis PR.
+**No usa IA ni consume tokens.**
+
+Jira queda fuera del script porque su MCP usa OAuth y no hay token local. Para incluirlo,
+dentro de Claude Code usa `/estado`.
+
+No hace falta instalar ninguna herramienta extra de visualizacion: `orca worktree ps` y la
+barra lateral de Orca ya muestran los espacios y sus agentes; este script solo los junta
+con Git y GitHub.
 
 Todo el detalle, los IDs y los comandos en [`context/orca.md`](context/orca.md).
 
