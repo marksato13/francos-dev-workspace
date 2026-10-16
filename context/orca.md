@@ -77,6 +77,59 @@ orca worktree set --worktree active --workspace-status in-review --json
 orca worktree set --worktree active --comment "PR #NN abierto, esperando CI" --json
 ```
 
+## Claude y Codex: los dos funcionan
+
+Verificado el 2026-10-16 en esta maquina.
+
+| Agente | CLI | Autenticacion |
+| --- | --- | --- |
+| `claude` | `C:\Users\markp\.local\bin\claude.exe` | OAuth, credenciales del sistema |
+| `codex` | `C:\Users\markp\AppData\Local\Programs\OpenAI\Codex\bin\codex.exe` | OAuth, `Personal (Plus)` |
+| `opencode` | `C:\Users\markp\scoop\shims\opencode.exe` | instalado, sin credenciales en Orca |
+
+Se eligen igual en los tres sitios:
+
+```powershell
+orca worktree create --name OFT0-XXX-slug --agent codex --json
+orca terminal create --worktree active --command codex --json
+orca automations create ... --provider codex
+```
+
+Gemini, Grok, Kimi, Cursor, MiniMax y ZCode aparecen en el listado de Orca pero
+**sin credenciales**, asi que no son opciones reales hoy.
+
+### Donde se lee que agente esta corriendo
+
+**No** en `worktree.agents`: ese campo se queda vacio aunque haya un agente vivo.
+Comprobado arrancando Codex y viendo `agents: []`.
+
+El dato real esta en **`agentIdentity` de cada terminal**:
+
+```powershell
+orca terminal list --worktree id:<repoId>::<ruta> --json
+# -> terminals[].agentIdentity = "codex" | "claude" | vacio si es una shell
+```
+
+`herramientas/estado.ps1` lo lee de ahi. Si alguna vez muestra `shell` donde
+esperas un agente, es que la terminal no es una sesion de agente registrada.
+
+### Que agente para que tarea
+
+El presupuesto no es simetrico y conviene mirarlo antes de lanzar trabajo largo.
+`herramientas/estado.ps1` lo muestra arriba del todo. Lectura del 2026-10-16:
+
+```
+claude   sesion  26%   semanal   3%
+codex    sesion   1%   semanal  58%
+```
+
+Criterio: **el cuello de botella es el limite semanal**, no el de sesion. Con
+Codex al 58% y Claude al 3%, el trabajo largo va a Claude y Codex se reserva
+para tareas acotadas, hasta que su ventana reinicie.
+
+Las tres automatizaciones se crearon con `--provider claude` por eso mismo.
+Para cambiarlas: `orca automations edit <id> --provider codex --json`.
+
 ## Automatizaciones
 
 Las tres son **de lectura y documentación**. Ninguna escribe código ni toca Jira.

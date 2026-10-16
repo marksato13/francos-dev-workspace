@@ -5,6 +5,10 @@
     Jira no entra aqui porque su MCP usa OAuth y no hay token local;
     para Jira usa el comando /estado dentro de Claude Code.
 
+    Funciona con Claude y con Codex indistintamente: el agente de cada terminal
+    se lee del campo agentIdentity, que Orca rellena con "claude", "codex" o el
+    id del agente que este corriendo.
+
     USO:
       pwsh -File "C:\Users\markp\Desktop\PY-MEGATRON\PY - PERFIL DE EGRESO -DEV\francos-dev-workspace\herramientas\estado.ps1"
 #>
@@ -26,11 +30,51 @@ function OrcaJson($argumentos) {
     } catch { return $null }
 }
 
+function Hace($ms) {
+    if (-not $ms) { return "-" }
+    $min = [int]((Get-Date) - [DateTimeOffset]::FromUnixTimeMilliseconds($ms).LocalDateTime).TotalMinutes
+    if ($min -lt 60)   { return "hace ${min}m" }
+    if ($min -lt 2880) { return "hace " + [int]($min/60) + "h" }
+    return "hace " + [int]($min/1440) + "d"
+}
+
 Write-Host ""
 Write-Host "  ESTADO  ·  $(Get-Date -Format 'dd/MM/yyyy HH:mm')" -ForegroundColor White
 
 #--------------------------------------------------------------------
-# 1. Orca: quien esta trabajando
+# 1. Presupuesto de cada IA
+#--------------------------------------------------------------------
+Titulo "PRESUPUESTO DE MIS IAs"
+
+$acc = OrcaJson @("account","list","--json")
+if (-not $acc) {
+    Write-Host "    Orca no responde" -ForegroundColor Yellow
+} else {
+    foreach ($prov in @("claude","codex")) {
+        $r = $acc.result.rateLimits.$prov
+        if (-not $r -or $r.status -ne "ok") {
+            $motivo = if ($r.error) { $r.error } else { "sin datos" }
+            Write-Host ("    {0,-8} no disponible: {1}" -f $prov, $motivo) -ForegroundColor DarkGray
+            continue
+        }
+        $ses = if ($r.session) { "sesion {0,3}%" -f $r.session.usedPercent } else { "sesion   -" }
+        $sem = if ($r.weekly)  { "semanal {0,3}%" -f $r.weekly.usedPercent }  else { "semanal   -" }
+        $pico = if ($r.weekly) { $r.weekly.usedPercent } else { 0 }
+        $c = if ($pico -ge 80) { "Red" } elseif ($pico -ge 50) { "Yellow" } else { "Green" }
+        $reset = if ($r.weekly) { "reinicia " + $r.weekly.resetDescription } else { "" }
+        Write-Host ("    {0,-8} {1}   {2}   {3}" -f $prov, $ses, $sem, $reset) -ForegroundColor $c
+    }
+    $otros = @()
+    foreach ($p in $acc.result.rateLimits.PSObject.Properties.Name) {
+        if ($p -in @("claude","codex")) { continue }
+        $v = $acc.result.rateLimits.$p
+        if ($v -and $v.status -eq "ok") { $otros += $p }
+    }
+    if ($otros.Count -gt 0) { Write-Host ("    tambien activos: " + ($otros -join ", ")) -ForegroundColor DarkGray }
+}
+
+#--------------------------------------------------------------------
+# 2. Orca: quien esta trabajando
 #--------------------------------------------------------------------
 Titulo "AGENTES Y ESPACIOS (Orca)"
 
@@ -42,25 +86,27 @@ if (-not $ps) {
         $activo = if ($w.status -eq "active") { "ACTIVO  " } else { "inactivo" }
         $color  = if ($w.status -eq "active") { "Green" } else { "DarkGray" }
 
-        $agentes = if ($w.agents -and $w.agents.Count -gt 0) {
-            ($w.agents | ForEach-Object { $_.agentId }) -join ", "
-        } elseif ($w.liveTerminalCount -gt 0) {
-            "shell"
-        } else { "-" }
-
-        $visto = if ($w.lastActivityAt) {
-            $min = [int]((Get-Date) - [DateTimeOffset]::FromUnixTimeMilliseconds($w.lastActivityAt).LocalDateTime).TotalMinutes
-            if ($min -lt 60) { "hace ${min}m" } else { "hace " + [int]($min/60) + "h" }
-        } else { "-" }
+        # El agente vive en agentIdentity de cada terminal, no en worktree.agents
+        $agentes = "-"
+        if ($w.liveTerminalCount -gt 0) {
+            $tl = OrcaJson @("terminal","list","--worktree","id:$($w.worktreeId)","--json")
+            if ($tl -and $tl.result.terminals) {
+                $ids = @($tl.result.terminals | ForEach-Object {
+                    if ($_.agentIdentity) { $_.agentIdentity } else { "shell" }
+                } | Select-Object -Unique)
+                if ($ids.Count -gt 0) { $agentes = $ids -join ", " }
+            }
+        }
 
         Write-Host ("    {0}  {1,-26} {2,-32}" -f $activo, $w.repo, $w.displayName) -ForegroundColor $color
-        Write-Host ("              agente: {0,-12} terminales: {1}  estado: {2}  visto: {3}" -f $agentes, $w.liveTerminalCount, $w.workspaceStatus, $visto) -ForegroundColor DarkGray
-        if ($w.comment) { Write-Host ("              nota: " + $w.comment) -ForegroundColor DarkCyan }
+        Write-Host ("              agente: {0,-14} terminales: {1}  estado: {2}  visto: {3}" -f $agentes, $w.liveTerminalCount, $w.workspaceStatus, (Hace $w.lastActivityAt)) -ForegroundColor DarkGray
+        if ($w.comment)   { Write-Host ("              nota: " + $w.comment) -ForegroundColor DarkCyan }
+        if ($w.linkedPR)  { Write-Host ("              PR:   #" + $w.linkedPR) -ForegroundColor DarkCyan }
     }
 }
 
 #--------------------------------------------------------------------
-# 2. Automatizaciones
+# 3. Automatizaciones
 #--------------------------------------------------------------------
 Titulo "AUTOMATIZACIONES"
 
@@ -74,7 +120,7 @@ if (-not $au -or -not $au.result.automations -or $au.result.automations.Count -e
         $prox = if ($a.enabled -and $a.nextRunAt) {
             [DateTimeOffset]::FromUnixTimeMilliseconds($a.nextRunAt).LocalDateTime.ToString("dd/MM HH:mm")
         } else { "-" }
-        Write-Host ("    [{0}] {1,-26} {2,-34} proxima: {3}" -f $estado, $a.name, $a.rrule, $prox) -ForegroundColor $color
+        Write-Host ("    [{0}] {1,-24} via {2,-7} {3,-34} proxima: {4}" -f $estado, $a.name, $a.agentId, $a.rrule, $prox) -ForegroundColor $color
     }
     if ($au.result.automations | Where-Object { -not $_.enabled }) {
         Write-Host "    Hay automatizaciones apagadas. Pruebalas con: orca automations run <id> --json" -ForegroundColor DarkYellow
@@ -82,7 +128,7 @@ if (-not $au -or -not $au.result.automations -or $au.result.automations.Count -e
 }
 
 #--------------------------------------------------------------------
-# 3. Backend
+# 4. Backend
 #--------------------------------------------------------------------
 Titulo "BACKEND"
 
@@ -92,8 +138,7 @@ if (-not (Test-Path $BACKEND)) {
     Push-Location $BACKEND
     git fetch --prune origin 2>$null | Out-Null
 
-    $rama = (git branch --show-current 2>$null)
-    Write-Host ("    rama actual: {0}" -f $rama)
+    Write-Host ("    rama actual: {0}" -f (git branch --show-current 2>$null))
 
     $cuenta = (git rev-list --left-right --count "HEAD...origin/develop" 2>$null)
     if ($cuenta) {
@@ -106,8 +151,7 @@ if (-not (Test-Path $BACKEND)) {
 
     $sucio = (git status --porcelain 2>$null)
     if ($sucio) {
-        $n = ($sucio | Measure-Object -Line).Lines
-        Write-Host ("    worktree con {0} archivo(s) sin confirmar" -f $n) -ForegroundColor Yellow
+        Write-Host ("    worktree con {0} archivo(s) sin confirmar" -f ($sucio | Measure-Object -Line).Lines) -ForegroundColor Yellow
     } else {
         Write-Host "    worktree limpio" -ForegroundColor Green
     }
@@ -115,7 +159,7 @@ if (-not (Test-Path $BACKEND)) {
 }
 
 #--------------------------------------------------------------------
-# 4. Mis PRs
+# 5. Mis PRs
 #--------------------------------------------------------------------
 Titulo "MIS PULL REQUESTS"
 
@@ -125,17 +169,17 @@ if (Test-Path $BACKEND) {
     if (-not $yo) {
         Write-Host "    gh no autenticado. Corre: gh auth login" -ForegroundColor Yellow
     } else {
-        $prs = gh pr list --author $yo --state open --json number,title,headRefName,statusCheckRollup,createdAt 2>$null | ConvertFrom-Json
+        $prs = gh pr list --author $yo --state open --json number,title,headRefName,statusCheckRollup 2>$null | ConvertFrom-Json
         if (-not $prs -or $prs.Count -eq 0) {
             Write-Host ("    no tienes PRs abiertos (autor: {0})" -f $yo) -ForegroundColor DarkGray
         } else {
             foreach ($pr in $prs) {
                 $fallos = @($pr.statusCheckRollup | Where-Object { $_.conclusion -eq "FAILURE" })
                 $curso  = @($pr.statusCheckRollup | Where-Object { $_.status -eq "IN_PROGRESS" })
-                if ($fallos.Count -gt 0) { $ci = "CI EN ROJO ($($fallos.Count))"; $c = "Red" }
-                elseif ($curso.Count -gt 0) { $ci = "CI corriendo"; $c = "Yellow" }
-                else { $ci = "CI en verde"; $c = "Green" }
-                Write-Host ("    #{0,-4} {1,-50} {2}" -f $pr.number, $pr.title, $ci) -ForegroundColor $c
+                if ($fallos.Count -gt 0)     { $ci = "CI EN ROJO ($($fallos.Count))"; $c = "Red" }
+                elseif ($curso.Count -gt 0)  { $ci = "CI corriendo";                  $c = "Yellow" }
+                else                         { $ci = "CI en verde";                   $c = "Green" }
+                Write-Host ("    #{0,-4} {1,-48} {2}" -f $pr.number, $pr.title, $ci) -ForegroundColor $c
                 Write-Host ("          {0}" -f $pr.headRefName) -ForegroundColor DarkGray
             }
         }
@@ -144,11 +188,11 @@ if (Test-Path $BACKEND) {
 }
 
 #--------------------------------------------------------------------
-# 5. Jira: recordatorio
+# 6. Jira
 #--------------------------------------------------------------------
 Titulo "JIRA"
 Write-Host "    Este script no consulta Jira: su MCP usa OAuth y no hay token local." -ForegroundColor DarkGray
-Write-Host "    Para el estado de tus subtareas, dentro de Claude Code ejecuta:" -ForegroundColor DarkGray
+Write-Host "    Dentro de Claude Code:" -ForegroundColor DarkGray
+Write-Host "      /estado    esta vista mas tus subtareas de Jira" -ForegroundColor White
 Write-Host "      /sync      reconcilia Jira, GitHub y las fichas" -ForegroundColor White
-Write-Host "      /estado    esta misma vista mas tus subtareas de Jira" -ForegroundColor White
 Write-Host ""
