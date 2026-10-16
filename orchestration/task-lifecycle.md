@@ -11,6 +11,7 @@ ramas y PR independientes.
 
 | Etapa | Comando | Agente | ¿Edita? | ¿Entrega? |
 | --- | --- | --- | --- | --- |
+| **0 Sincronizar** | **`/sync`** | principal | Solo documentacion | No |
 | 0 Bandeja | `/task-inbox` | principal | No | No |
 | 1 Auditar | `/task-audit` | `jira-task-auditor` | **No** | No |
 | 2 Preparar | `/task-start` | principal | Sí (ficha + rama) | No |
@@ -98,6 +99,58 @@ PR detras, el borrado es irrecuperable: reportalo y que lo decida su autor.
 Una rama propia con PR cerrado si se puede borrar: GitHub conserva
 `refs/pull/<n>/head` de forma permanente, asi que el commit se recupera con
 `git fetch origin refs/pull/<n>/head`. Verificalo **antes** de borrar, no despues.
+
+## Orca: un worktree por tarea
+
+Cada subtarea se trabaja en su propio worktree de Orca, para no pisar el checkout principal
+ni mezclar dos tareas en el mismo arbol.
+
+```powershell
+orca worktree create `
+  --repo id:2479e1c5-364c-4d1d-b885-d282a348debc `
+  --name OFT0-XXX-slug `
+  --no-parent `
+  --agent claude `
+  --json
+```
+
+- **Se omite `--base-branch` a proposito.** El repo tiene `worktreeBaseRef = origin/develop`,
+  asi que Orca saca la rama de `develop` sola. Pasarlo a mano es la forma de equivocarse.
+- `--no-parent` porque las subtareas son independientes; no se apilan ramas.
+- El `worktree.id` que devuelve es `<repoId>::<ruta>` **entero**. Hay que copiarlo completo.
+
+Al avanzar, mantener la tarjeta al dia:
+
+```powershell
+orca worktree set --worktree active --workspace-status in-progress --json
+orca worktree set --worktree active --comment "CA-1 a CA-4 implementados; faltan pruebas" --json
+```
+
+Detalle completo en [`context/orca.md`](../context/orca.md).
+
+## Frontera de autonomia
+
+Decidido el 2026-10-16: **automatico hasta la rama, supervisado desde el commit.**
+
+```
+vigilar Jira  ->  auditar  ->  ficha  ->  worktree + rama  ->  implementar
+                                                                    |
+                                                          [ EL AGENTE SE DETIENE ]
+                                                                    |
+                                              el usuario revisa el diff y lanza /task-pr
+                                                                    |
+                                                commit -> push -> PR -> Jira  (con confirmacion)
+                                                                    |
+                                                      merge: una persona en GitHub
+```
+
+El agente **nunca** cruza la linea del commit por su cuenta. No es una convencion: en
+`.claude/settings.json`, `git commit`, `git push` y `gh pr create` estan en `ask`, y
+`gh pr merge` y todo lo que apunte a `main` estan en `deny`.
+
+Motivo: el repositorio lo tocan **6 personas**, el CI tiene 5 puertas con `lint` bloqueante,
+y ya hubo una reasignacion de tareas sin aviso. Un agente abriendo PRs sin supervision ahi
+produce colisiones, no velocidad.
 
 ## Definición de terminado
 

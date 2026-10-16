@@ -36,6 +36,7 @@ acceso.
 
 | Comando | Qué hace | Agente |
 | --- | --- | --- |
+| **`/sync`** | **Reconcilia Jira, GitHub y las fichas. Avisa si me quitaron una tarea** | principal |
 | `/task-inbox` | Lista y prioriza mis subtareas backend por rank | principal |
 | `/task-audit OFT0-345` | Audita la subtarea, su HU padre y el código real | `jira-task-auditor` |
 | `/task-start OFT0-345` | `develop` al día, crea la rama y escribe la ficha | principal |
@@ -132,13 +133,24 @@ abres Claude en el repo del backend o en la carpeta padre, no aparecerán.
 Que Claude Code arranque sin errores **no prueba** que los permisos sean
 correctos. Revisa la lista `deny` de `.claude/settings.json`.
 
-## Estado conocido (2026-09-28)
+## Orca
 
-- Mi rol es **backend**: 16/16 subtareas asignadas son `Desarrollar backend`.
-- El tablero OFT0 **se renumeró**: las claves `OFT0-5x` están muertas.
-- Siguiente tarea por rank: **`OFT0-345`** (HU-A-007 Gestionar producto).
-- Sprint 1 está activo pero **vencido** desde el 2026-09-25.
-- `develop` avanzó 26 commits en septiembre: CI con 5 puertas, guards globales
-  JWT+RBAC, `RolesGuard` denegando por defecto y `lint` bloqueante.
+Orca 1.4.218 tiene registrados el backend (base `origin/develop`) y este workspace, y
+tres automatizaciones de vigilancia **creadas desactivadas**. La frontera de autonomia es:
+automatico hasta la rama, supervisado desde el commit.
 
-Detalle en [`planificacion/sprint-1.md`](planificacion/sprint-1.md).
+Todo el detalle, los IDs y los comandos en [`context/orca.md`](context/orca.md).
+
+## Estado conocido (2026-10-16)
+
+- Mi rol es **backend**: las 12 subtareas asignadas son `Desarrollar backend`.
+- **Cuatro subtareas pasaron a Roxwell** (`OFT0-345`, `349`, `353`, `361`). Dos ya las
+  entrego el en los PR #31 y #34.
+- **9 subtareas atrasadas**: 6 de Sprint 2 (vencido el 09-oct) y 3 de Sprint 3.
+- Ninguna de mis 12 tiene rama.
+- Siguiente tarea recomendada: **`OFT0-473`** (HU-A-039 Gestionar datos de la empresa),
+  la primera sin dependencias ajenas.
+- `develop` avanzo **71 commits** entre el 28-sep y el 16-oct, con 5 contribuyentes.
+- El tablero se renumero una vez: verificar toda clave antes de usarla.
+
+Detalle en [`planificacion/backlog-asignado.md`](planificacion/backlog-asignado.md).

@@ -1,87 +1,95 @@
-# Backlog asignado — auditado 2026-09-28
+# Backlog asignado — auditado 2026-10-16
 
-Fuente: Jira `oracle-f1.atlassian.net`, proyecto `OFT0`, cuenta
-`712020:ef37d90b-c74e-42fc-88fd-f3caf818b5bf`, orden por rank (`cf[10019] ASC`).
+Fuente: Jira `oracle-f1.atlassian.net`, proyecto `OFT0`, orden por rank (`cf[10019] ASC`).
+Contrastado contra `origin/develop` del backend el mismo día.
 
-**30 incidencias asignadas:** 14 Historias + **16 subtareas `Desarrollar backend`**.
-Las 16 subtareas son mi trabajo real. Las Historias son el contenedor del
-criterio de aceptación.
+> Esta auditoría **reemplaza** la del 2026-09-28. El reparto cambió.
 
-## Mis 16 subtareas de backend, en orden de rank
+## Resumen
 
-| # | Subtarea | HU padre | Alcance | Épica | Sprint |
+**12 subtareas `Desarrollar backend`. Las 12 en `Por hacer`. Ninguna tiene rama.**
+
+Eran 16. Cuatro se reasignaron a Roxwell — ver abajo.
+
+## Mis 12 subtareas, en orden de rank
+
+| # | Subtarea | HU padre | Alcance | Sprint | ¿Bloqueada? |
 | --- | --- | --- | --- | --- | --- |
-| 1 | `OFT0-345` | OFT0-249 | HU-A-007 Gestionar producto | 310 Catálogo | **1** |
-| 2 | `OFT0-349` | OFT0-250 | HU-A-008 Activar, desactivar y reactivar producto | 310 Catálogo | **1** |
-| 3 | `OFT0-353` | OFT0-251 | HU-A-009 Gestionar pedido | 311 Pedidos | **1** |
-| 4 | `OFT0-357` | OFT0-252 | HU-A-010 Actualizar estado de pedido | 311 Pedidos | **1** |
-| 5 | `OFT0-361` | OFT0-253 | HU-A-011 Gestionar reembolso | 311 Pedidos | **1** |
-| 6 | `OFT0-473` | OFT0-281 | HU-A-039 Gestionar datos de la empresa | 316 Config. Sistema | 2 |
-| 7 | `OFT0-485` | OFT0-284 | HU-A-042 Gestionar usuario interno | 316 Config. Sistema | 2 |
-| 8 | `OFT0-493` | OFT0-286 | HU-A-044 Gestionar series de comprobantes | 316 Config. Sistema | 2 |
-| 9 | `OFT0-521` | OFT0-293 | HU-B-005 Consultar catálogo de productos | 318 Compras Cliente | 2 |
-| 10 | `OFT0-529` | OFT0-295 | HU-B-007 Crear pedido mediante carrito | 318 Compras Cliente | 2 |
-| 11 | `OFT0-557` | OFT0-302 | HU-B-014 Solicitar reembolso | 318 Compras Cliente | 2 |
-| 12 | `OFT0-409` | OFT0-265 | HU-A-023 Procesar pedidos para entrega | 315 Despacho | 3 |
-| 13 | `OFT0-537` | OFT0-297 | HU-B-009 Seleccionar tipo de comprobante | 318 Compras Cliente | 3 |
-| 14 | `OFT0-541` | OFT0-298 | HU-B-010 Generar comprobante | 318 Compras Cliente | 3 |
-| 15 | `OFT0-573` | OFT0-306 | HU-B-018 Actualizar dirección de entrega | 319 Config. Cuenta | 6 |
-| 16 | `OFT0-577` | OFT0-307 | HU-B-019 Gestionar preferencias de notificaciones | 319 Config. Cuenta | 6 |
+| 1 | `OFT0-357` | OFT0-252 | HU-A-010 Actualizar estado de pedido | 1 | **Sí** — depende de OFT0-353 |
+| 2 | `OFT0-409` | OFT0-265 | HU-A-023 Procesar pedidos para entrega | 3 | **Sí** — depende de pedidos |
+| 3 | `OFT0-473` | OFT0-281 | HU-A-039 Gestionar datos de la empresa | 2 | **No** |
+| 4 | `OFT0-485` | OFT0-284 | HU-A-042 Gestionar usuario interno | 2 | No |
+| 5 | `OFT0-493` | OFT0-286 | HU-A-044 Gestionar series de comprobantes | 2 | No |
+| 6 | `OFT0-521` | OFT0-293 | HU-B-005 Consultar catálogo de productos | 2 | No |
+| 7 | `OFT0-529` | OFT0-295 | HU-B-007 Crear pedido mediante carrito | 2 | Parcial — catálogo primero |
+| 8 | `OFT0-537` | OFT0-297 | HU-B-009 Seleccionar tipo de comprobante | 3 | Sí — series primero |
+| 9 | `OFT0-541` | OFT0-298 | HU-B-010 Generar comprobante | 3 | Sí — series + tipo |
+| 10 | `OFT0-557` | OFT0-302 | HU-B-014 Solicitar reembolso | 2 | Sí — pedidos |
+| 11 | `OFT0-573` | OFT0-306 | HU-B-018 Actualizar dirección de entrega | 6 | No |
+| 12 | `OFT0-577` | OFT0-307 | HU-B-019 Gestionar preferencias de notificaciones | 6 | No |
 
-Todas en estado `Por hacer`. La única HU en `En curso` es OFT0-249.
+## Estado de los sprints
 
-## Carga por sprint
+| Sprint | Fechas | Mis subtareas | Situación |
+| --- | --- | --- | --- |
+| 1 | 14-sep → 25-sep | 1 (`357`) | **vencido hace 3 semanas**, sigue `active` |
+| 2 | 28-sep → 09-oct | **6** | **vencido hace 1 semana**, ninguna empezada |
+| 3 | 12-oct → **16-oct** | 3 | **vence hoy**, ninguna empezada |
+| 6 | 02-nov → 06-nov | 2 | futuro |
 
-| Sprint | Subtareas backend | Notas |
-| --- | --- | --- |
-| **1** (activo) | 5 | `endDate` 2026-09-25 → **vencido** |
-| 2 | 6 | |
-| 3 | 3 | |
-| 6 | 2 | |
+**9 subtareas atrasadas** entre Sprint 2 y 3.
 
-No hay trabajo asignado en sprints 4 y 5.
+## Siguiente tarea recomendada: `OFT0-473`
 
-## Dependencias lógicas que conviene respetar
+No es la primera por rank, y hay una razón verificada:
 
-El rank ya las respeta, pero vale explicitarlas:
+- `OFT0-357` (rank 1) necesita que exista la gestión de pedidos: **`OFT0-353` es de Roxwell
+  y está `Por hacer`**. No depende de mí.
+- `OFT0-409` (rank 2) depende de lo mismo.
+- **`OFT0-473` es la primera sin dependencias ajenas.**
 
-- **OFT0-345** (gestionar producto) antes de **OFT0-349** (activar/desactivar):
-  no puedes cambiar el estado de algo que aún no se crea.
-- **OFT0-345** antes de **OFT0-521** (consultar catálogo en Portal B): el catálogo
-  público lee lo que el Portal A produce, incluido el flag `Visible en el Portal B`.
-- **OFT0-353** (gestionar pedido) antes de **OFT0-357** (actualizar estado) y antes
-  de **OFT0-361** (reembolso): el reembolso cuelga de un pedido existente.
-- **OFT0-529** (carrito) antes de **OFT0-537** y **OFT0-541** (comprobantes).
+Además:
 
-## Anomalías del tablero
+- Pertenece a Sprint 2, que es el bucket más atrasado (6 pendientes).
+- El modelo `Empresa` **ya existe** en `prisma/schema.prisma`.
+- No hay ningún controlador que toque empresa: `git grep -il "empresa"` sobre
+  `src/modules/*/presentation/controllers` no devuelve nada. Es trabajo virgen, sin
+  riesgo de colisión.
+- Desbloquea `OFT0-493` (series de comprobantes), que es configuración del mismo bloque.
 
-1. **Dos HU mías son de Roxwell.** `OFT0-251` (HU-A-009) y `OFT0-252` (HU-A-010)
-   están asignadas a **Roxwell Jesus Ramos Turpo** a nivel de Historia, aunque sus
-   subtareas de backend (`OFT0-353`, `OFT0-357`) son mías. Para auditarlas hay que
-   leer el padre explícitamente.
+Rama a crear:
 
-2. **Las subtareas no tienen criterio propio.** Las 16 tienen
-   `description: null`. Siempre hay que subir a la HU padre.
+```
+feature/OFT0-473-gestionar-datos-de-la-empresa
+```
 
-3. **Las 6 épicas están sin asignar** y en `Por hacer`, incluso aquellas cuyas HU
-   ya están en curso. El estado de las épicas no es señal de nada.
+## Las 4 subtareas que ya no son mías
 
-4. **`Pruebas / QA` no tiene dueño** en ninguna HU auditada. La verificación es
-   mía, vía CI y pruebas en el PR.
+Reasignadas a **Roxwell Jesus Ramos Turpo**. Verificado el 2026-10-16:
 
-5. **Sprint 1 sigue abierto y vencido** (3 días al 2026-09-28).
+| Subtarea | Alcance | Estado hoy | Evidencia en GitHub |
+| --- | --- | --- | --- |
+| `OFT0-345` | HU-A-007 Gestionar producto | **Listo** | PR #31 `feature/OFT0-345-gestionar-producto`, **MERGED**, autor `bersdecker` |
+| `OFT0-349` | HU-A-008 Activar/desactivar producto | **Listo** | PR #34 `feature/OFT0-349-...`, **OPEN** desde 11-oct, autor `bersdecker` |
+| `OFT0-353` | HU-A-009 Gestionar pedido | Por hacer | sin rama |
+| `OFT0-361` | HU-A-011 Gestionar reembolso | Por hacer | sin rama |
 
-## Advertencia de renumeración
+`bersdecker` **es Roxwell**: `gh api users/bersdecker` devuelve `name: Roxwell`.
 
-El tablero se renumeró en algún momento entre agosto y septiembre de 2026. Las
-claves de la serie `OFT0-5x` **están muertas**: `OFT0-55` devuelve 404.
+Nota: `OFT0-349` figura como `Listo` en Jira pero su PR #34 sigue **abierto**. El tablero
+va por delante del repositorio.
 
-Equivalencia conocida:
+**Consecuencia:** la ficha `specs/OFT0-345-gestionar-producto.md` quedó obsoleta. Se archivó
+en `specs/archivo/`. No la uses.
 
-| Clave vieja | Clave actual |
-| --- | --- |
-| `OFT0-55` | HU `OFT0-249` / subtarea `OFT0-345` |
+## Trampas del tablero que siguen vigentes
 
-El repositorio conserva rastros de la numeración vieja: la rama
-`feature/OFT0-55-gestionar-producto`, el commit `854f76e` y el PR #6 (cerrado).
-Ninguno se vincula con el tablero actual.
+1. **Las 12 subtareas tienen `description: null`.** El criterio de aceptación vive solo en
+   la HU padre, y viene como un párrafo único con muchas capacidades mezcladas. Hay que
+   descomponerlo en `CA-1`, `CA-2`… antes de programar.
+2. **Varias HU padre no son mías.** `OFT0-252` es de Roxwell. Para auditarlas hay que leer
+   el padre explícitamente.
+3. **Sprint 1 sigue `active` y vencido hace tres semanas.** Las fechas del tablero no son
+   fiables para planificar.
+4. **Mi `develop` local se quedó 71 commits atrás** entre el 28-sep y el 16-oct. Actualizar
+   antes de cualquier rama es obligatorio, no opcional.
