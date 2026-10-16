@@ -51,9 +51,10 @@ cambiar la configuración en silencio porque un PDF lo dice.
 
 Una línea por documento revisado: qué es, de cuándo, y qué regla salió de él.
 
-| Documento | Fecha | Qué cambió |
+| Documento | Revisado | Qué cambió |
 | --- | --- | --- |
-| *(vacío — sube el primero)* | | |
+| `referencia/guia-git-flow.pdf` | 2026-10-16 | Cerro el hueco de `git push origin develop` (regla de oro #1). Habilito `hotfix/` manteniendo `main` protegido. Origen de [`context/git-flow-equipo.md`](../context/git-flow-equipo.md) |
+| `referencia/guia-git-prisma.pdf` | 2026-10-16 | `prisma migrate deploy` obligatorio tras cada pull. Nueva skill [`prisma-migraciones`](../.claude/skills/prisma-migraciones/SKILL.md). Cambio `git add` a "verificar y luego `git add .`" |
 
 ## Formatos
 

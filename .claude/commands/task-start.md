@@ -38,6 +38,17 @@ git pull --ff-only origin develop
 Si el `pull --ff-only` falla, hay divergencia local en `develop`: **detente y
 repórtalo.** No fuerces nada.
 
+Y acto seguido, **obligatorio** (regla de oro del manual de Prisma del equipo):
+
+```bash
+pnpm exec prisma migrate deploy
+pnpm exec prisma generate
+```
+
+`migrate deploy` aplica solo las migraciones que trajo el pull y que aun no estan en tu
+base local; es seguro repetirlo. Saltarse esto es lo que produce los errores
+`Property X does not exist on type`. Detalle en la skill `prisma-migraciones`.
+
 ## 4. Crear la rama
 
 Una incidencia = una rama = un PR. Comprueba primero que no exista ya

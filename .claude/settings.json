@@ -38,6 +38,7 @@
       "Bash(pnpm exec prisma generate:*)",
       "Bash(pnpm exec prisma validate:*)",
       "Bash(pnpm exec prisma format:*)",
+      "Bash(pnpm exec prisma migrate deploy:*)",
       "Bash(pnpm exec prisma migrate status:*)",
       "Bash(docker compose ps:*)",
       "Bash(docker compose logs:*)",
@@ -56,7 +57,10 @@
       "mcp__jira__search",
       "mcp__jira__fetch",
       "mcp__jira__addCommentToJiraIssue",
-      "mcp__jira__transitionJiraIssue"
+      "mcp__jira__transitionJiraIssue",
+      "Bash(git switch main)",
+      "Bash(git checkout main)",
+      "Bash(pnpm exec prisma studio:*)"
     ],
     "ask": [
       "Bash(git commit:*)",
@@ -74,19 +78,23 @@
       "Bash(docker compose up:*)",
       "Bash(docker compose down:*)",
       "Bash(docker build:*)",
-      "Bash(docker run:*)"
+      "Bash(docker run:*)",
+      "Bash(gh pr create --base main:*)",
+      "Bash(gh pr create -B main:*)",
+      "Bash(rm -rf ../backend-monolito-francos/generated/prisma:*)",
+      "Bash(pnpm start:dev:*)"
     ],
     "deny": [
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
+      "Bash(git push origin develop:*)",
+      "Bash(git push origin HEAD:refs/heads/develop)",
       "Bash(git push origin main:*)",
       "Bash(git push origin HEAD:refs/heads/main)",
       "Bash(git merge main:*)",
       "Bash(git merge origin/main:*)",
       "Bash(git rebase main:*)",
       "Bash(git rebase origin/main:*)",
-      "Bash(git switch main)",
-      "Bash(git checkout main)",
       "Bash(git reset --hard:*)",
       "Bash(git clean:*)",
       "Bash(git stash:*)",
@@ -122,7 +130,10 @@
       "mcp__jira__addWorklogToJiraIssue",
       "mcp__jira__createIssueLink",
       "mcp__jira__createConfluencePage",
-      "mcp__jira__updateConfluencePage"
+      "mcp__jira__updateConfluencePage",
+      "Bash(rm -rf ../backend-monolito-francos/prisma/migrations:*)",
+      "Bash(rm -r ../backend-monolito-francos/prisma/migrations:*)",
+      "Edit(../backend-monolito-francos/prisma/migrations/**/migration.sql)"
     ]
   }
 }

@@ -35,15 +35,43 @@ No lo incluyas y no lo descartes.
 
 ## 4. Commit
 
-`git add` con **rutas explícitas**, archivo por archivo. **Nunca `git add -A` ni
-`git add .`**: es la forma más fácil de meter un `.env` o el trabajo de otro en el
-commit.
+El equipo pide `git add .` para que `prisma/migrations/` nunca se quede fuera del commit
+(manual de Prisma, paso 6). Pero el repo lo tocan 6 personas. Asi que: **`git add .` si,
+pero solo despues de verificar.**
+
+Secuencia obligatoria, sin saltarse el primer paso:
+
+```bash
+git status --short          # 1. MIRAR que hay
+```
+
+Revisa la salida y confirma las tres cosas **antes** de añadir nada:
+
+- [ ] Ningún archivo pertenece a otra incidencia ni a otra persona.
+- [ ] No aparece `.env` ni ninguna variante, ni `dist/`, ni `node_modules/`, ni logs,
+      ni caches.
+- [ ] Si la tarea toca persistencia, **`prisma/schema.prisma` y `prisma/migrations/`
+      estan los dos** en la lista. Van siempre en el mismo commit.
+
+Si aparece cualquier archivo ajeno: **detente y reportalo.** No lo añadas y no lo
+descartes.
+
+Solo con las tres casillas confirmadas:
+
+```bash
+git add .                   # 2. ahora si
+git status --short          # 3. confirmar que lo que va al commit es lo esperado
+```
 
 Mensaje en formato convencional, con la clave de la **subtarea**:
 
 ```
 feat(<modulo>): $1 <descripcion corta>
 ```
+
+Prefijos que usa el equipo (guia de Git Flow): `feat:` funcionalidad nueva, `fix:`
+correccion de bug, `refactor:` refactorizacion, `docs:` documentacion, `chore:`
+configuracion y dependencias, `test:` pruebas.
 
 Usa `fix(...)` solo si corriges algo ya fusionado. El cuerpo, si hace falta,
 explica el *por qué*, no el *qué*.
