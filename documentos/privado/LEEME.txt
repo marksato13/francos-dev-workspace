@@ -1,0 +1,2 @@
+Esta carpeta NO se versiona. Nada de lo que pongas aqui sale de tu maquina.
+Usala para documentos con datos personales, credenciales o informacion del cliente.

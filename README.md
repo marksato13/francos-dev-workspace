@@ -83,6 +83,8 @@ specs/TEMPLATE.md             plantilla de ficha
 specs/OFT0-XXX-slug.md        una ficha por incidencia
 orchestration/                ciclo de vida y matriz de bloqueos
 herramientas/estado.ps1       vista unica Orca + Git + GitHub, sin IA
+herramientas/launch-testsprite.ps1  lanzador del MCP de TestSprite
+documentos/                   acuerdos y referencia en PDF (privado/ no se versiona)
 context/orca.md               configuracion de Orca y frontera de autonomia
 ```
 
@@ -141,6 +143,28 @@ correctos. Revisa la lista `deny` de `.claude/settings.json`.
 Orca 1.4.218 tiene registrados el backend (base `origin/develop`) y este workspace, y
 tres automatizaciones de vigilancia **creadas desactivadas**. La frontera de autonomia es:
 automatico hasta la rama, supervisado desde el commit.
+
+## Documentos y acuerdos
+
+Los PDF que condicionan como se trabaja (acuerdos del equipo, actas, convenciones) van a
+[`documentos/`](documentos/LEEME.md). Dejas el archivo y me dices que lo revise: lo leo,
+contrasto con lo ya configurado y lo convierto en regla.
+
+`documentos/privado/` esta en el `.gitignore` para lo que lleve datos personales o
+credenciales. Ante la duda, ahi.
+
+## Servidores MCP
+
+| MCP | Para que | Ambito |
+| --- | --- | --- |
+| `jira` | Tablero OFT0 | usuario |
+| `testsprite` | Generacion y ejecucion de pruebas | usuario |
+| `claude.ai Claude Docs` | Documentos compartidos | usuario |
+| `zotero`, `figma`, `clickup`, `geogebra` | Otros proyectos | usuario |
+
+TestSprite arranca con [`herramientas/launch-testsprite.ps1`](herramientas/launch-testsprite.ps1),
+que lee `TESTSPRITE_API_KEY` de las variables de usuario de Windows. **La clave no esta en
+ningun archivo del repo.** El mismo lanzador sirve para Claude Code y para OpenCode.
 
 ## Ver donde estoy
 

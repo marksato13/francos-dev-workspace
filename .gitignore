@@ -9,6 +9,10 @@
 .claude/settings.local.json
 .claude/.credentials.json
 
+# Documentos privados: nunca salen de la maquina
+documentos/privado/*
+!documentos/privado/LEEME.txt
+
 # Ruido del sistema y editores
 node_modules/
 .DS_Store
