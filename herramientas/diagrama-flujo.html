@@ -1,0 +1,430 @@
+<title>Flujo de trabajo OFT0</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  /* Documento tecnico en una columna: diagrama primero, tablas de referencia despues. */
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --surface-2: #eef1f5;
+    --fg: #14171d;
+    --muted: #5b6472;
+    --line: #d7dde5;
+    --accent: #1d5fa8;
+    --ok: #2f7d4f;
+    --ask: #92600f;
+    --deny: #ab3729;
+
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --serif: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101319;
+      --surface: #171b22;
+      --surface-2: #1e232c;
+      --fg: #e7eaf0;
+      --muted: #98a2b1;
+      --line: #2a313c;
+      --accent: #74abe9;
+      --ok: #5cb983;
+      --ask: #dc9f45;
+      --deny: #e5705f;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #101319;
+    --surface: #171b22;
+    --surface-2: #1e232c;
+    --fg: #e7eaf0;
+    --muted: #98a2b1;
+    --line: #2a313c;
+    --accent: #74abe9;
+    --ok: #5cb983;
+    --ask: #dc9f45;
+    --deny: #e5705f;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.62;
+    margin: 0;
+  }
+
+  .wrap {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+
+  header { border-bottom: 2px solid var(--fg); padding-bottom: 1.25rem; margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 .5rem;
+  }
+  h1 {
+    font-family: var(--sans); font-weight: 700; font-size: clamp(1.8rem, 5vw, 2.6rem);
+    line-height: 1.1; margin: 0 0 .6rem; text-wrap: balance; letter-spacing: -.02em;
+  }
+  .sub { color: var(--muted); margin: 0; max-width: 46rem; }
+
+  h2 {
+    font-family: var(--sans); font-weight: 600; font-size: 1.32rem;
+    margin: 3rem 0 .4rem; letter-spacing: -.01em; text-wrap: balance;
+  }
+  h2:first-of-type { margin-top: 2rem; }
+  h3 { font-family: var(--sans); font-weight: 600; font-size: 1rem; margin: 1.8rem 0 .3rem; }
+  .lede { color: var(--muted); margin: 0 0 1.2rem; max-width: 46rem; }
+  p { max-width: 46rem; }
+
+  figure { margin: 1.5rem 0 1.75rem; }
+  .scroller { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1rem; }
+  svg { display: block; max-width: 100%; height: auto; }
+  figcaption {
+    font-family: var(--sans); font-size: .83rem; color: var(--muted);
+    margin-top: .6rem; max-width: 46rem;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: .5rem 0 1rem; }
+  .tablescroll { overflow-x: auto; }
+  th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    font-family: var(--sans); font-size: .74rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--fg);
+  }
+  td:first-child { white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  code, .mono { font-family: var(--mono); font-size: .86em; }
+  td code { background: var(--surface-2); padding: .1em .36em; border-radius: 3px; white-space: nowrap; }
+
+  .tag {
+    font-family: var(--mono); font-size: .72rem; font-weight: 500;
+    padding: .12em .5em; border-radius: 3px; white-space: nowrap;
+    border: 1px solid currentColor;
+  }
+  .t-ok { color: var(--ok); }
+  .t-ask { color: var(--ask); }
+  .t-deny { color: var(--deny); }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: .9rem; margin: 1.2rem 0 1.5rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: .9rem 1rem; min-width: 0; }
+  .card .n {
+    font-family: var(--mono); font-size: 1.7rem; font-weight: 500; line-height: 1;
+    font-variant-numeric: tabular-nums; display: block; margin-bottom: .3rem;
+  }
+  .card .l { font-family: var(--sans); font-size: .82rem; color: var(--muted); line-height: 1.35; display: block; }
+
+  .note {
+    border-left: 3px solid var(--accent); background: var(--surface);
+    padding: .85rem 1rem; margin: 1.2rem 0; border-radius: 0 4px 4px 0;
+  }
+  .note.warn { border-left-color: var(--deny); }
+  .note p { margin: 0; max-width: none; font-size: .94rem; }
+  .note strong { font-family: var(--sans); }
+
+  pre {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+    padding: .85rem 1rem; overflow-x: auto; font-family: var(--mono);
+    font-size: .83rem; line-height: 1.65; margin: .8rem 0;
+  }
+
+  ol, ul { max-width: 46rem; padding-left: 1.3rem; }
+  li { margin-bottom: .35rem; }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+    font-family: var(--sans); font-size: .82rem; color: var(--muted);
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Franco&rsquo;s ERP &middot; proyecto OFT0 &middot; backend</p>
+    <h1>Flujo de trabajo OFT0</h1>
+    <p class="sub">C&oacute;mo una subtarea de Jira se convierte en un pull request hacia <code>develop</code>, qu&eacute; hace un agente solo y d&oacute;nde se detiene a esperarte.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card"><span class="n">4</span><span class="l">agentes</span></div>
+    <div class="card"><span class="n">9</span><span class="l">comandos</span></div>
+    <div class="card"><span class="n">3</span><span class="l">skills</span></div>
+    <div class="card"><span class="n">3</span><span class="l">automatizaciones</span></div>
+    <div class="card"><span class="n">5</span><span class="l">puertas del CI</span></div>
+  </div>
+
+  <h2>La frontera de autonom&iacute;a</h2>
+  <p class="lede">Es la decisi&oacute;n central del sistema. El agente trabaja solo hasta justo antes del commit; a partir de ah&iacute;, cada paso hacia fuera te pregunta.</p>
+
+  <figure>
+    <div class="scroller">
+      <svg viewBox="0 0 1006 258" role="img" aria-label="Tuber&iacute;a de seis etapas: sync, auditar, rama y ficha, implementar y verificar son autom&aacute;ticas; despu&eacute;s de una frontera, task-pr pide confirmaci&oacute;n y el merge lo hace una persona en GitHub.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <!-- bandas -->
+        <text x="20" y="24" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" opacity=".55" letter-spacing="1.5">AUTOM&Aacute;TICO</text>
+        <text x="738" y="24" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" opacity=".55" letter-spacing="1.5">TE PREGUNTA</text>
+
+        <!-- etapas automaticas -->
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="20"  y="78" width="110" height="58" rx="5" opacity=".45"/>
+          <rect x="158" y="78" width="110" height="58" rx="5" opacity=".45"/>
+          <rect x="296" y="78" width="110" height="58" rx="5" opacity=".45"/>
+          <rect x="434" y="78" width="110" height="58" rx="5" opacity=".45"/>
+          <rect x="572" y="78" width="110" height="58" rx="5" opacity=".45"/>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor" text-anchor="middle">
+          <text x="75"  y="102">/sync</text>
+          <text x="213" y="102">/task-audit</text>
+          <text x="351" y="102">/task-start</text>
+          <text x="489" y="102">/task-implement</text>
+          <text x="627" y="102">/task-verify</text>
+        </g>
+        <g font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle" opacity=".72">
+          <text x="75"  y="122">qu&eacute; cambi&oacute;</text>
+          <text x="213" y="122">criterios CA-x</text>
+          <text x="351" y="122">rama + ficha</text>
+          <text x="489" y="122">c&oacute;digo + pruebas</text>
+          <text x="627" y="122">5 puertas del CI</text>
+        </g>
+
+        <!-- flechas automaticas -->
+        <g stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)" opacity=".6">
+          <line x1="130" y1="107" x2="152" y2="107"/>
+          <line x1="268" y1="107" x2="290" y2="107"/>
+          <line x1="406" y1="107" x2="428" y2="107"/>
+          <line x1="544" y1="107" x2="566" y2="107"/>
+        </g>
+
+        <!-- frontera -->
+        <line x1="710" y1="34" x2="710" y2="222" stroke="var(--deny)" stroke-width="2" stroke-dasharray="7 5"/>
+        <text x="710" y="244" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--deny)" text-anchor="middle" letter-spacing="1">EL AGENTE SE DETIENE</text>
+        <line x1="682" y1="107" x2="704" y2="107" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)" opacity=".6"/>
+
+        <!-- etapas supervisadas -->
+        <g fill="none" stroke="var(--ask)" stroke-width="1.75">
+          <rect x="738" y="78" width="110" height="58" rx="5"/>
+        </g>
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="876" y="78" width="110" height="58" rx="5" opacity=".45"/>
+        </g>
+        <text x="793" y="102" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ask)" text-anchor="middle">/task-pr</text>
+        <text x="793" y="122" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="var(--ask)" text-anchor="middle">confirmas 3 veces</text>
+        <text x="931" y="102" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">Merge</text>
+        <text x="931" y="122" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle" opacity=".72">una persona</text>
+        <line x1="716" y1="107" x2="732" y2="107" stroke="var(--ask)" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="848" y1="107" x2="870" y2="107" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)" opacity=".6"/>
+
+        <!-- notas bajo las cajas -->
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".5">
+          <text x="351" y="160">feature/OFT0-XXX-slug</text>
+          <text x="627" y="160">build &middot; lint &middot; test &middot; e2e &middot; docker</text>
+          <text x="793" y="160">commit &rarr; push &rarr; PR</text>
+          <text x="931" y="160">en GitHub</text>
+        </g>
+
+        <!-- barra inferior de alcance -->
+        <line x1="20" y1="186" x2="682" y2="186" stroke="currentColor" stroke-width="1" opacity=".3"/>
+        <line x1="738" y1="186" x2="986" y2="186" stroke="var(--ask)" stroke-width="1" opacity=".55"/>
+        <text x="351" y="204" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle" opacity=".55">no sale nada del equipo</text>
+        <text x="862" y="204" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="var(--ask)" text-anchor="middle" opacity=".9">aqu&iacute; lo ven tus compa&ntilde;eros</text>
+      </svg>
+    </div>
+    <figcaption>La frontera cae en el commit porque es el primer paso cuyo efecto sale de tu m&aacute;quina. Todo lo de la izquierda es reversible borrando una rama local.</figcaption>
+  </figure>
+
+  <div class="note">
+    <p><strong>Por qu&eacute; ah&iacute; y no m&aacute;s adelante.</strong> El repositorio lo tocan 6 personas y el CI tiene cinco puertas con <code>lint</code> bloqueante. Un agente abriendo PRs sin supervisi&oacute;n en ese entorno produce colisiones, no velocidad.</p>
+  </div>
+
+  <h2>De la clave Jira a la rama</h2>
+  <p class="lede">La subtarea pone la clave; su historia padre pone el nombre. Las subtareas tienen <code>description: null</code>, as&iacute; que el criterio de aceptaci&oacute;n siempre se lee del padre.</p>
+
+  <figure>
+    <div class="scroller">
+      <svg viewBox="0 0 760 236" role="img" aria-label="La clave de la subtarea OFT0-473 y el t&iacute;tulo de su historia padre HU-A-039 se combinan en la rama feature/OFT0-473-gestionar-datos-de-la-empresa.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <rect x="20" y="24" width="300" height="62" rx="5" fill="none" stroke="var(--accent)" stroke-width="1.75"/>
+        <text x="34" y="44" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="1">SUBTAREA</text>
+        <text x="34" y="66" font-family="IBM Plex Mono, monospace" font-size="15" fill="currentColor">OFT0-473</text>
+        <text x="150" y="66" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor" opacity=".7">Desarrollar backend</text>
+        <text x="34" y="80" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".5">description: null</text>
+
+        <rect x="20" y="112" width="300" height="62" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+        <text x="34" y="132" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor" opacity=".6" letter-spacing="1">HISTORIA PADRE</text>
+        <text x="34" y="154" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="currentColor" opacity=".75">OFT0-281</text>
+        <text x="114" y="154" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">HU-A-039 Gestionar datos de la empresa</text>
+        <text x="34" y="168" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".5">aqu&iacute; viven los criterios</text>
+
+        <line x1="170" y1="86" x2="170" y2="106" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)" opacity=".5"/>
+        <text x="182" y="101" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor" opacity=".6">parent</text>
+
+        <path d="M 320 55 L 356 55 L 356 99" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".75"/>
+        <path d="M 320 143 L 356 143 L 356 107" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+        <line x1="356" y1="103" x2="396" y2="103" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)" opacity=".6"/>
+
+        <text x="368" y="52" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--accent)">clave</text>
+        <text x="368" y="160" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".6">slug</text>
+
+        <rect x="404" y="74" width="336" height="58" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.75"/>
+        <text x="418" y="94" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ok)" letter-spacing="1">RAMA</text>
+        <text x="418" y="116" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor">feature/OFT0-473-gestionar-datos-</text>
+        <text x="418" y="130" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor">de-la-empresa</text>
+
+        <text x="404" y="166" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" opacity=".6">sale de <tspan font-family="IBM Plex Mono, monospace">develop</tspan> actualizado &middot; PR siempre hacia <tspan font-family="IBM Plex Mono, monospace">develop</tspan></text>
+
+        <line x1="20" y1="192" x2="740" y2="192" stroke="currentColor" stroke-width="1" opacity=".2"/>
+        <text x="20" y="212" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" opacity=".65"><tspan font-family="IBM Plex Mono, monospace">feature/</tspan> funcionalidad nueva &nbsp;&middot;&nbsp; <tspan font-family="IBM Plex Mono, monospace">fix/</tspan> corregir algo ya fusionado &nbsp;&middot;&nbsp; <tspan font-family="IBM Plex Mono, monospace">chore/</tspan> infraestructura</text>
+        <text x="20" y="228" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor" opacity=".65">Una incidencia = una rama = un PR</text>
+      </svg>
+    </div>
+    <figcaption>El tablero se renumer&oacute; una vez: <code>OFT0-55</code> ya no existe. Verifica toda clave contra Jira antes de usarla en una rama o un commit.</figcaption>
+  </figure>
+
+  <h2>Las cinco puertas del CI</h2>
+  <p class="lede"><code>build</code> va primero y las otras cuatro dependen de &eacute;l. Si <code>build</code> falla, ninguna llega a ejecutarse. <code>/task-verify</code> las replica en local para que no gastes un PR en rojo.</p>
+
+  <figure>
+    <div class="scroller">
+      <svg viewBox="0 0 640 282" role="img" aria-label="El job build precede a lint, test-unit, test-e2e y docker, que dependen de &eacute;l.">
+        <defs>
+          <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <rect x="20" y="114" width="118" height="54" rx="5" fill="none" stroke="var(--accent)" stroke-width="1.75"/>
+        <text x="79" y="137" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent)" text-anchor="middle">build</text>
+        <text x="79" y="155" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".6">pnpm build</text>
+
+        <path d="M 138 141 L 170 141 L 170 38 L 196 38" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)" opacity=".5"/>
+        <path d="M 138 141 L 170 141 L 170 106 L 196 106" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)" opacity=".5"/>
+        <path d="M 138 141 L 170 141 L 170 174 L 196 174" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)" opacity=".5"/>
+        <path d="M 138 141 L 170 141 L 170 242 L 196 242" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)" opacity=".5"/>
+        <text x="152" y="134" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".45" text-anchor="middle">needs</text>
+
+        <rect x="202" y="14" width="418" height="48" rx="5" fill="none" stroke="var(--deny)" stroke-width="1.75"/>
+        <text x="216" y="34" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="var(--deny)">lint</text>
+        <text x="216" y="50" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".65">pnpm lint:check &nbsp;+&nbsp; pnpm format:check</text>
+        <text x="606" y="34" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--deny)" text-anchor="end" letter-spacing=".5">BLOQUEANTE</text>
+
+        <rect x="202" y="82" width="418" height="48" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+        <text x="216" y="102" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="currentColor">test-unit</text>
+        <text x="216" y="118" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".65">pnpm test</text>
+
+        <rect x="202" y="150" width="418" height="48" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+        <text x="216" y="170" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="currentColor">test-e2e</text>
+        <text x="216" y="186" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".65">postgres 17 &rarr; migrate deploy &rarr; seed &rarr; pnpm test:e2e</text>
+
+        <rect x="202" y="218" width="418" height="48" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+        <text x="216" y="238" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="currentColor">docker</text>
+        <text x="216" y="254" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".65">build de imagen + smoke contra /api/docs</text>
+      </svg>
+    </div>
+    <figcaption>En CI el paso de Prettier lleva <code>if: !cancelled()</code>, as&iacute; que corre aunque ESLint ya haya fallado: los dos errores salen en el mismo run.</figcaption>
+  </figure>
+
+  <div class="note warn">
+    <p><strong>Nunca uses <code>pnpm lint</code> ni <code>pnpm format</code> para verificar.</strong> Llevan <code>--fix</code> y <code>--write</code>: modifican archivos y te dan un falso verde. Las variantes <code>:check</code> son las que comprueban.</p>
+  </div>
+
+  <h2>Qu&eacute; puede hacer cada agente</h2>
+  <p class="lede">Los tres de solo lectura no tienen <code>Edit</code> ni <code>Write</code> en su lista blanca de herramientas. No es una convenci&oacute;n escrita: es la definici&oacute;n del agente.</p>
+
+  <div class="tablescroll">
+    <table>
+      <thead><tr><th>Agente</th><th>Edita</th><th>Para qu&eacute;</th></tr></thead>
+      <tbody>
+        <tr><td><code>jira-task-auditor</code></td><td><span class="tag t-deny">no</span></td><td>Audita contra Jira, GitHub y el c&oacute;digo. Descompone el p&aacute;rrafo de la HU en criterios <code>CA-x</code></td></tr>
+        <tr><td><code>backend-implementer</code></td><td><span class="tag t-ok">s&iacute;</span></td><td>Implementa el alcance aprobado en la ficha. Solo el backend</td></tr>
+        <tr><td><code>backend-reviewer</code></td><td><span class="tag t-deny">no</span></td><td>Replica las 5 puertas y revisa el diff</td></tr>
+        <tr><td><code>frontend-contract-reader</code></td><td><span class="tag t-deny">no</span></td><td>Qu&eacute; contrato de API consume el frontend antes de cambiar un endpoint</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Lo que est&aacute; bloqueado</h2>
+  <p class="lede">En Claude Code <code>deny</code> siempre gana sobre <code>allow</code>, as&iacute; que estas reglas no se pueden sortear desde un agente. Hoy: <span class="mono">54 allow &middot; 20 ask &middot; 49 deny</span>.</p>
+
+  <div class="tablescroll">
+    <table>
+      <thead><tr><th>Operaci&oacute;n</th><th>Estado</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td><code>git push origin main</code></td><td><span class="tag t-deny">denegado</span></td><td>Nunca subir a <code>main</code> directo</td></tr>
+        <tr><td><code>git push origin develop</code></td><td><span class="tag t-deny">denegado</span></td><td>Regla de oro #1 del equipo: siempre por PR</td></tr>
+        <tr><td><code>git push --force</code></td><td><span class="tag t-deny">denegado</span></td><td>Reescribe historia compartida</td></tr>
+        <tr><td><code>gh pr merge</code></td><td><span class="tag t-deny">denegado</span></td><td>El merge lo hace una persona en GitHub</td></tr>
+        <tr><td><code>git reset --hard</code>, <code>clean</code>, <code>stash</code></td><td><span class="tag t-deny">denegado</span></td><td>Protegen cambios ajenos del worktree</td></tr>
+        <tr><td><code>prisma migrate reset</code>, <code>db push</code></td><td><span class="tag t-deny">denegado</span></td><td>Destruyen o desincronizan la base local</td></tr>
+        <tr><td>Borrar <code>prisma/migrations/</code></td><td><span class="tag t-deny">denegado</span></td><td>Regla de oro del manual de Prisma</td></tr>
+        <tr><td>Leer el <code>.env</code></td><td><span class="tag t-deny">denegado</span></td><td>Contiene la contrase&ntilde;a de PostgreSQL y el <code>JWT_SECRET</code></td></tr>
+        <tr><td>Escribir en los frontends</td><td><span class="tag t-deny">denegado</span></td><td>Son de otra persona</td></tr>
+        <tr><td><code>git commit</code>, <code>push</code>, <code>gh pr create</code></td><td><span class="tag t-ask">pregunta</span></td><td>La frontera de autonom&iacute;a</td></tr>
+        <tr><td><code>gh pr create --base main</code></td><td><span class="tag t-ask">pregunta</span></td><td>Lo necesita <code>hotfix/</code>, pero debe ser deliberado</td></tr>
+        <tr><td><code>prisma migrate dev</code></td><td><span class="tag t-ask">pregunta</span></td><td>Crea migraci&oacute;n: entra en el historial del equipo</td></tr>
+        <tr><td><code>prisma migrate deploy</code></td><td><span class="tag t-ok">libre</span></td><td>Solo aplica lo pendiente. Seguro de repetir</td></tr>
+        <tr><td><code>git switch main</code></td><td><span class="tag t-ok">libre</span></td><td>Hace falta para ramificar un <code>hotfix/</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Vigilancia autom&aacute;tica</h2>
+  <p class="lede">Tres automatizaciones de Orca que solo leen y documentan. Nacieron de un problema real: entre el 28 de septiembre y el 16 de octubre te reasignaron cuatro subtareas y pasaron dos sprints sin que nadie avisara.</p>
+
+  <div class="tablescroll">
+    <table>
+      <thead><tr><th>Automatizaci&oacute;n</th><th>Cu&aacute;ndo</th><th>Qu&eacute; vigila</th></tr></thead>
+      <tbody>
+        <tr><td><code>OFT0 vigia Jira</code></td><td>diario 08:00</td><td>Reasignaciones, cambios de estado, sprints vencidos</td></tr>
+        <tr><td><code>OFT0 vigia develop</code></td><td>diario 08:15</td><td>Atraso de <code>develop</code> y qu&eacute; PRs invalidan una ficha</td></tr>
+        <tr><td><code>OFT0 auditar siguiente</code></td><td>lunes 09:00</td><td>Audita la siguiente tarea desbloqueada y escribe su ficha</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Se crearon <strong>desactivadas</strong> a prop&oacute;sito. Pru&eacute;balas a mano antes de encenderlas:</p>
+  <pre>orca automations run &lt;id&gt; --json</pre>
+
+  <h2>C&oacute;mo empezar una tarea</h2>
+  <ol>
+    <li>Abre Claude Code en <code>francos-dev-workspace</code>.</li>
+    <li><code>/estado</code> &mdash; d&oacute;nde est&aacute;s: agentes, presupuesto de cada IA, atraso de <code>develop</code>, tus PRs.</li>
+    <li><code>/sync</code> &mdash; qu&eacute; cambi&oacute; en Jira desde la &uacute;ltima vez.</li>
+    <li><code>/task-audit OFT0-473</code> &mdash; criterios numerados con evidencia <code>archivo:l&iacute;nea</code>.</li>
+    <li><code>/task-start OFT0-473</code> &mdash; <code>develop</code> al d&iacute;a, <code>migrate deploy</code>, rama y ficha.</li>
+    <li><code>/task-implement OFT0-473</code> &mdash; solo el alcance aprobado, con pruebas.</li>
+    <li><code>/task-verify OFT0-473</code> &mdash; las cinco puertas.</li>
+    <li><code>/task-pr OFT0-473</code> &mdash; aqu&iacute; empieza a preguntarte.</li>
+  </ol>
+
+  <div class="note">
+    <p><strong>QA no tiene due&ntilde;o en este proyecto.</strong> La subtarea <code>Pruebas / QA</code> est&aacute; sin asignar en todas las historias auditadas. Las pruebas del comportamiento nuevo van en el mismo PR que el c&oacute;digo: si no las escribes t&uacute;, no existen.</p>
+  </div>
+
+  <footer>
+    Auditado el 16 de octubre de 2026 &middot; <span class="mono">marksato13/francos-dev-workspace</span><br>
+    Siguiente tarea recomendada: <span class="mono">OFT0-473</span> &mdash; HU-A-039 Gestionar datos de la empresa.
+  </footer>
+
+</div>
