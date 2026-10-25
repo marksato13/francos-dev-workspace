@@ -36,7 +36,7 @@ verificar.
 | [#46](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/46) | OFT0-521 | HU-B-005 Consultar catálogo de productos | `feature/OFT0-521-consultar-catalogo-productos` | 2026-10-18 | mergeado 2026-10-18 (PieroLan) |
 | [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | OFT0-409 | HU-A-023 Procesar pedidos para entrega | `feature/OFT0-409-procesar-pedidos-para-entrega` | 2026-10-18 | abierto, CI 6/6 |
 | [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) | OFT0-529 | HU-B-007 Crear pedido mediante carrito | `feature/OFT0-529-crear-pedido-mediante-carrito` | 2026-10-18 | abierto, CI 6/6 |
-| [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | abierto (depende de #53) |
+| [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | abierto, CI 6/6 (depende de #53) |
 
 Fichas: `specs/OFT0-473-gestionar-datos-empresa.md`, `specs/OFT0-485-gestionar-usuario-interno.md`,
 `specs/OFT0-493-gestionar-series-comprobantes.md`, `specs/OFT0-521-consultar-catalogo-productos.md`,
@@ -51,7 +51,7 @@ El PR #6 (`feature/OFT0-55-gestionar-producto`, 2026-08-30) está cerrado sin me
 | --- | --- | --- | --- |
 | 2026-10-18 | Merge de develop tras #40, #50 y #54; conflictos en `sales.module.ts` resueltos conservando las dos partes; migraciones renombradas tras las de develop | #49, #53, #40 | CI 6/6 en cada PR |
 | 2026-10-24 | Aviso del equipo: en AWS solo corre `prisma migrate deploy`, no el seed. El rol `despacho` del #49 pasa a migración `20261024020000_rol_despacho` (idempotente); `fecha_entrega` renombrada a `20261024010000` | #49 | commit `2f6e2d5`; con solo `deploy` el rol existe; CI 6/6 (run 40166157358) |
-| 2026-10-24 | Merge de develop (PRs #57 a #70) | #49 `84ea9cb`, #53 `890e160`, #55 `be4a0f0` | local: 931 / 921 / 955 unitarias, 567 / 562 / 595 e2e; CI #49 y #53 6/6 |
+| 2026-10-24 | Merge de develop (PRs #57 a #70) | #49 `84ea9cb`, #53 `890e160`, #55 `be4a0f0` | local: 931 / 921 / 955 unitarias, 567 / 562 / 595 e2e; CI de #49, #53 y #55 6/6 |
 
 #53 y #55 no traen datos de referencia ni migraciones; el aviso no les aplica.
 
