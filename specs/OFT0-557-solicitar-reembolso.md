@@ -203,4 +203,6 @@ PostgreSQL local (`francos-db-pg16`). Logs en el scratchpad de la sesión.
 - No trae migraciones, schema ni seeds (`git diff origin/develop...HEAD -- prisma/` vacío): el aviso de datos de referencia como migración no le aplica.
 - **Verificado en local** (Postgres 16 desechable): build, `lint:check`, prettier del diff, 955/955 unitarias, `migrate deploy` + seed sin deriva, e2e 595/595 con `--runInBand --testTimeout=60000`.
 - **Revisión `backend-reviewer`:** listo para push. Develop no cambia Pedido/Pago/Reembolso ni añade métodos abstractos en sales; #64 (cerrar sesión) exige `sid` en el JWT y los e2e del PR usan login real, así que siguen válidos; solo hay dos rutas `portal/*`, sin solapes.
-- **Entrega:** push `7fb4440..be4a0f0`; CI del PR #55 6/6 en verde. Sigue dependiendo del #53: se fusiona primero el #53.
+- **Entrega:** push `7fb4440..be4a0f0`; CI del PR #55 6/6 en verde.
+- 2026-10-25: merge `5b3a1db` de la rama del #53 ya resuelta (develop `868c900`, con #49), sin conflictos. Local: 1094/1094 unitarias, `migrate deploy` + seed, e2e 679/679 (`--testTimeout=60000`). CI 6/6. Push `be4a0f0..5b3a1db`.
+- **Hallazgo ajeno:** `migrate diff` da deriva en `inventory.movimiento_insumo` (índice sobre `lote_insumo_id` y default de `codigo`), que entró con el #73 (JoelRM1408). Este PR no toca `prisma/` (`git diff origin/develop...HEAD -- prisma/` vacío). El CI solo corre `migrate deploy`, así que no bloquea; avisar a Joel. Sigue dependiendo del #53: se fusiona primero el #53.

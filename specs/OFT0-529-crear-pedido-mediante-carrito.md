@@ -160,3 +160,4 @@ No ejecutado y por qué: `format:check` global falla en local por CRLF del workt
 - **Revisión `backend-reviewer`:** listo para push. Develop solo añadió en sales un filtro `cliente_id` al listado; `findPresentacionesParaPedido` y `findClienteParaResumenPorUser` siguen válidos; `Persona.direccion` no cambió (develop añadió `distrito_id` y `Cliente.codigo`).
 - **Observación no bloqueante:** el resumen devuelve la dirección en texto libre, sin `distrito_id`. Si producto quiere el distrito en la dirección de entrega, es otra incidencia. · *Decide:* PO.
 - **Entrega:** push `4a57d99..890e160`; CI del PR #53 6/6 en verde (run 40166801163).
+- 2026-10-25: tras el merge del #49 en develop (`868c900`, hasta #74), conflicto en `sales.module.ts` (providers: `ResumirPedidoPortalUseCase` frente a los tres de despacho), resuelto conservando ambos. Merge `68a20bc`. Local: 1060/1060 unitarias, e2e 646/646 (`--testTimeout=60000`). CI 6/6. Push `890e160..68a20bc`.

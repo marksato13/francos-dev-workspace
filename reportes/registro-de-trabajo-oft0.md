@@ -20,7 +20,7 @@ Una subtarea Jira = una rama = un PR hacia `develop`. Nunca hago merge a `develo
 4. `/task-verify`: replico en local las puertas del CI (build, lint, test-unit, test-e2e
    sobre PostgreSQL 16 desechable, docker) y el agente `backend-reviewer` revisa el diff.
 5. `/task-pr`: commit, push, PR a `develop`, CI en verde, comentario y transición en Jira
-   (*En revisión*). Nunca muevo nada a *Listo*.
+   (*En revisión*). Paso a *Listo* solo cuando el PR ya está mergeado (autorizado por el usuario el 2026-10-25).
 
 Cuando `develop` avanza, traigo `develop` a **mis** ramas abiertas (merge, nunca rebase ni
 force push), renombro mis migraciones para que queden después de las de `develop` y vuelvo a
@@ -34,7 +34,7 @@ verificar.
 | [#39](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/39) | OFT0-485 | HU-A-042 Gestionar usuario interno | `feature/OFT0-485-gestionar-usuario-interno` | 2026-10-17 | mergeado 2026-10-18 (PieroLan) |
 | [#40](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/40) | OFT0-493 | HU-A-044 Gestionar series de comprobantes | `feature/OFT0-493-gestionar-series-comprobantes` | 2026-10-17 | mergeado 2026-10-18 (PieroLan) |
 | [#46](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/46) | OFT0-521 | HU-B-005 Consultar catálogo de productos | `feature/OFT0-521-consultar-catalogo-productos` | 2026-10-18 | mergeado 2026-10-18 (PieroLan) |
-| [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | OFT0-409 | HU-A-023 Procesar pedidos para entrega | `feature/OFT0-409-procesar-pedidos-para-entrega` | 2026-10-18 | abierto, CI 6/6 |
+| [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | OFT0-409 | HU-A-023 Procesar pedidos para entrega | `feature/OFT0-409-procesar-pedidos-para-entrega` | 2026-10-18 | mergeado 2026-10-25 (PieroLan) |
 | [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) | OFT0-529 | HU-B-007 Crear pedido mediante carrito | `feature/OFT0-529-crear-pedido-mediante-carrito` | 2026-10-18 | abierto, CI 6/6 |
 | [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | abierto, CI 6/6 (depende de #53) |
 
@@ -64,6 +64,9 @@ la configuración normal.
 
 ## Pendiente
 
-- Pasar a *Listo* OFT0-473, OFT0-485 y OFT0-493 (PR mergeados): lo hace el usuario o el PO.
+- 2026-10-25: pasé a *Listo* OFT0-409, 473, 485 y 493 (PR mergeados), con comentario en cada una (10114 a 10117).
+- OFT0-357 (Sprint 1, HU-A-010) sigue a mi nombre en Jira, pero la hizo Roxwell (PR #45); él la movió a *Listo*.
+- 2026-10-25: tras el merge del #49, conflicto en `sales.module.ts` de #53 y #55, resuelto en sus ramas (#53 `68a20bc`, #55 `5b3a1db`); los dos con CI 6/6 y MERGEABLE.
+- Deriva ajena en `inventory.movimiento_insumo` (entró con el #73 de JoelRM1408): `migrate diff` la detecta; el CI no la revisa.
 - Siguiente subtarea: OFT0-537 (HU-B-009 Seleccionar tipo de comprobante), desbloqueada
   porque las series del #40 ya están en `develop`.
