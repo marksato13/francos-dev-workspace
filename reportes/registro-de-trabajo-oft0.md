@@ -35,13 +35,14 @@ verificar.
 | [#40](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/40) | OFT0-493 | HU-A-044 Gestionar series de comprobantes | `feature/OFT0-493-gestionar-series-comprobantes` | 2026-10-17 | mergeado 2026-10-18 (PieroLan) |
 | [#46](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/46) | OFT0-521 | HU-B-005 Consultar catálogo de productos | `feature/OFT0-521-consultar-catalogo-productos` | 2026-10-18 | mergeado 2026-10-18 (PieroLan) |
 | [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | OFT0-409 | HU-A-023 Procesar pedidos para entrega | `feature/OFT0-409-procesar-pedidos-para-entrega` | 2026-10-18 | mergeado 2026-10-25 (PieroLan) |
-| [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) | OFT0-529 | HU-B-007 Crear pedido mediante carrito | `feature/OFT0-529-crear-pedido-mediante-carrito` | 2026-10-18 | abierto, CI 6/6 |
-| [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | abierto, CI 6/6 (depende de #53) |
+| [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) | OFT0-529 | HU-B-007 Crear pedido mediante carrito | `feature/OFT0-529-crear-pedido-mediante-carrito` | 2026-10-18 | mergeado 2026-10-26 (PieroLan) |
+| [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | mergeado 2026-10-26 (PieroLan) |
+| [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) | OFT0-537 | HU-B-009 Seleccionar tipo de comprobante | `feature/OFT0-537-seleccionar-tipo-comprobante` | 2026-10-26 | abierto; local: 1146 unitarias, 726 e2e, docker + smoke |
 
 Fichas: `specs/OFT0-473-gestionar-datos-empresa.md`, `specs/OFT0-485-gestionar-usuario-interno.md`,
 `specs/OFT0-493-gestionar-series-comprobantes.md`, `specs/OFT0-521-consultar-catalogo-productos.md`,
 `specs/OFT0-409-procesar-pedidos-para-entrega.md`, `specs/OFT0-529-crear-pedido-mediante-carrito.md`,
-`specs/OFT0-557-solicitar-reembolso.md`.
+`specs/OFT0-557-solicitar-reembolso.md`, `specs/OFT0-537-seleccionar-tipo-comprobante.md`.
 
 El PR #6 (`feature/OFT0-55-gestionar-producto`, 2026-08-30) está cerrado sin merge.
 
@@ -68,5 +69,8 @@ la configuración normal.
 - OFT0-357 (Sprint 1, HU-A-010) sigue a mi nombre en Jira, pero la hizo Roxwell (PR #45); él la movió a *Listo*.
 - 2026-10-25: tras el merge del #49, conflicto en `sales.module.ts` de #53 y #55, resuelto en sus ramas (#53 `68a20bc`, #55 `5b3a1db`); los dos con CI 6/6 y MERGEABLE.
 - Deriva ajena en `inventory.movimiento_insumo` (entró con el #73 de JoelRM1408): `migrate diff` la detecta; el CI no la revisa.
-- Siguiente subtarea: OFT0-537 (HU-B-009 Seleccionar tipo de comprobante), desbloqueada
-  porque las series del #40 ya están en `develop`.
+- 2026-10-26: OFT0-537 implementada y entregada en el PR #80 (commit `1fcec99`); Jira en
+  *En revisión* con el comentario 10127. Decisiones D-1 a D-3 tomadas por mí antes de programar
+  (ficha). Contrato aditivo en `POST /portal/pedidos/resumen`: avisar a OFT0-538 (front) y a
+  Piero (OFT0-533).
+- Siguiente subtarea: OFT0-541 (HU-B-010 Generar comprobante), que depende de 537 y de OFT0-533.
