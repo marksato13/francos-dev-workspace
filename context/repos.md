@@ -65,26 +65,24 @@ en `.claude/settings.json`.
 
 ## Frontends — solo lectura
 
-| Carpeta local | Remoto configurado | Estado del remoto |
+**Usar estos dos clones (2026-11-01), en `develop`:**
+
+| Carpeta local | Repo en GitHub | Stack | Qué es |
+| --- | --- | --- | --- |
+| `../frontend-angular-francos` | `Proyecto-Aura/frontend-angular-francos` | Angular | Portal de la empresa (Portal A) |
+| `../frontend-cliente-angular` | `Proyecto-Aura/frontend-cliente-angular` | Angular (`angular.json`) | Portal del cliente (Portal B) |
+
+Los clones viejos quedan obsoletos y no se borran:
+
+| Carpeta local | Remoto configurado | Estado |
 | --- | --- | --- |
-| `../frontend-francos` | `Proyecto-Aura/frontend-francos` | **404 — no existe** |
-| `../frontend-next-francos` | `Proyecto-Aura/frontend-next-francos` | **404 — no existe** |
+| `../frontend-francos` | `Proyecto-Aura/frontend-francos` | 404 — `git fetch` falla |
+| `../frontend-next-francos` | `Proyecto-Aura/frontend-next-francos` | 404; era Next + React |
 
-Los repos vivos en la organización son otros:
-
-| Repo en GitHub | Descripción | Último push |
-| --- | --- | --- |
-| `frontend-angular-francos` | Portal de la empresa en Angular | 2026-08-27 |
-| `frontend-cliente-angular` | Portal del cliente | 2026-08-30 |
-
-**Hallazgo:** los dos clones locales apuntan a remotos que ya no existen (fueron
-renombrados o recreados, y GitHub no está sirviendo redirección). `git fetch`
-sobre ellos falla.
-
-Stacks locales: `frontend-francos` es Angular (`francos-frontend`);
-`frontend-next-francos` es Next + React (`portal-cliente`). Ojo: el repo vivo se
-llama `frontend-cliente-angular`, lo que sugiere que el portal del cliente se
-migró de Next a Angular. **Sin verificar.**
+**Verificado:** el portal del cliente se migró de Next a Angular. `frontend-cliente-angular`
+tiene `angular.json` y conserva las ramas `feature/Crear-pedido`, `feature/Carrito-compras`, etc.,
+del repo Next, además de ramas nuevas `feature/OFT0-XXX-*`. El `CLAUDE.md` raíz sigue citando las
+rutas viejas: actualizarlo cuando el usuario lo pida.
 
 Como no son mi responsabilidad, no los arreglo. Se consultan solo para entender
 qué contrato de API esperan antes de cambiar un endpoint.

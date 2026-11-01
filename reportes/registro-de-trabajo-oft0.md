@@ -37,7 +37,7 @@ verificar.
 | [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | OFT0-409 | HU-A-023 Procesar pedidos para entrega | `feature/OFT0-409-procesar-pedidos-para-entrega` | 2026-10-18 | mergeado 2026-10-25 (PieroLan) |
 | [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) | OFT0-529 | HU-B-007 Crear pedido mediante carrito | `feature/OFT0-529-crear-pedido-mediante-carrito` | 2026-10-18 | mergeado 2026-10-26 (PieroLan) |
 | [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | OFT0-557 | HU-B-014 Solicitar reembolso | `feature/OFT0-557-solicitar-reembolso` | 2026-10-18 | mergeado 2026-10-26 (PieroLan) |
-| [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) | OFT0-537 | HU-B-009 Seleccionar tipo de comprobante | `feature/OFT0-537-seleccionar-tipo-comprobante` | 2026-10-26 | abierto; local: 1146 unitarias, 726 e2e, docker + smoke |
+| [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) | OFT0-537 | HU-B-009 Seleccionar tipo de comprobante | `feature/OFT0-537-seleccionar-tipo-comprobante` | 2026-10-26 | mergeado 2026-10-27; CI 6/6. Jira *Listo* 2026-11-01 (comentario 10161) |
 
 Fichas: `specs/OFT0-473-gestionar-datos-empresa.md`, `specs/OFT0-485-gestionar-usuario-interno.md`,
 `specs/OFT0-493-gestionar-series-comprobantes.md`, `specs/OFT0-521-consultar-catalogo-productos.md`,

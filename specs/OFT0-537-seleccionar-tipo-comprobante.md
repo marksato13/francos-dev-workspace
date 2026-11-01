@@ -163,4 +163,5 @@ Contrato nuevo (aditivo):
 | --- | --- |
 | PR | [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) — commit `1fcec99` |
 | Estado del CI | 6/6 en verde (run 40273089511); MERGEABLE |
-| Jira | *En revisión*, comentario 10127 (2026-10-26) |
+| Jira | *En revisión*, comentario 10127 (2026-10-26); *Listo*, comentario 10161 (2026-11-01) |
+| Merge | 2026-10-27 en `develop` |

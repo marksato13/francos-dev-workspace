@@ -22,7 +22,7 @@ Contrastado con `origin/develop` del backend (`868c900`, PR #74) y `gh pr list` 
 | 5 | `OFT0-493` | HU-A-044 Gestionar series de comprobantes | 2 | Listo (2026-10-25) | [#40](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/40) MERGED 2026-10-18 | yo |
 | 6 | `OFT0-521` | HU-B-005 Consultar catálogo de productos | 2 | Listo | [#46](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/46) MERGED 2026-10-18 | yo |
 | 7 | `OFT0-529` | HU-B-007 Crear pedido mediante carrito | 2 | Listo | [#53](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/53) MERGED 2026-10-26 | yo |
-| 8 | `OFT0-537` | HU-B-009 Seleccionar tipo de comprobante | 3 | En revisión (2026-10-26) | [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) OPEN | yo |
+| 8 | `OFT0-537` | HU-B-009 Seleccionar tipo de comprobante | 3 | Listo (2026-11-01) | [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) MERGED 2026-10-27 | yo |
 | 9 | `OFT0-541` | HU-B-010 Generar comprobante | 3 | Por hacer | — | — |
 | 10 | `OFT0-557` | HU-B-014 Solicitar reembolso | 2 | Listo | [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) MERGED 2026-10-26 | yo |
 | 11 | `OFT0-573` | HU-B-018 Actualizar dirección de entrega | 6 | Por hacer | — | — |
@@ -49,9 +49,23 @@ con un comentario en cada una que cita el PR mergeado (comentarios 10114 a 10117
   /empresa/logo`.
 - `develop` integró mis #38, #39, #40, #46 y #49.
 
+## Sync 2026-11-01
+
+- **Nadie me quitó subtareas:** las 12 siguen a mi nombre. Las HU padre (OFT0-265, 281, 284,
+  286, 293, 295, 297, 298, 302, 306, 307) también están a mi nombre, desde que Piero las asignó
+  el 2026-09-17. OFT0-286 pasó a Roxwell y volvió a mí el 2026-10-24 en un minuto (Andres
+  Chavarri, changelog 14340/14343).
+- Roxwell está moviendo las HU padre: OFT0-295 a *En curso* (2026-10-31) y OFT0-286 a
+  *En revisión*, con la DoD tachada (2026-10-31).
+- OFT0-537 a *Listo* (comentario 10161): el PR #80 entró el 2026-10-27.
+- Nadie tiene ramas ni PRs de 541, 573 o 577.
+- `develop` del backend en `db8c45c` (#87): +5 migraciones aplicadas en local, 50 en total.
+  Ver #88 `20261031000000_ruta_comprobantes`.
+- Frontends renombrados: ver `context/repos.md`.
+
 ## Siguiente tarea recomendada: `OFT0-541`
 
-- 537 entregada en el PR #80 (2026-10-26), en revisión.
+- 537 entregada y mergeada (PR #80, 2026-10-27).
 - 541 (generar comprobante) depende de 537 y de que el pedido del portal exista (OFT0-533,
   Piero): conviene auditarla antes de programar.
 
