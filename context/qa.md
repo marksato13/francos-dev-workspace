@@ -7,13 +7,43 @@ existente. Es informativo: no impide un merge.
 
 ```mermaid
 flowchart TD
-  PR["PR hacia develop"] --> Q["qa.yml: job qa-e2e"]
-  Q --> DB["postgres:17.10-alpine<br/>migraciones y seed demo"]
-  DB --> API["API del PR<br/>Culqi simulado"]
-  API --> T["Tienda desde develop<br/>solo lectura, puerto 4200"]
-  T --> P["Playwright con Chromium<br/>2 pruebas de humo"]
-  P -- "verde" --> R["Reporte como artefacto"]
-  P -- "rojo o flaky" --> L["Reporte y logs del entorno"]
+  subgraph R1["Repo: backend-monolito-francos"]
+    PR["1. PR hacia develop"]
+    QA["2. GitHub Actions lee qa.yml"]
+    SRC["Código del PR<br/>NestJS + Prisma"]
+    SPEC["Pruebas qa/e2e/humo.spec.ts"]
+  end
+
+  subgraph R2["Repo: frontend-cliente-angular"]
+    TD["Rama develop de la tienda<br/>solo lectura"]
+  end
+
+  subgraph R3["Repo: frontend-angular-francos"]
+    PE["Portal de la empresa<br/>no participa en QA"]
+  end
+
+  subgraph RUN["Máquina temporal de GitHub Actions"]
+    DB["3. PostgreSQL 17<br/>Prisma: migraciones y datos demo"]
+    API["4. API NestJS<br/>puerto 3000, Culqi simulado"]
+    WEB["5. Tienda Angular<br/>serve, puerto 4200"]
+    PW["6. Playwright abre Chromium<br/>login y catálogo"]
+  end
+
+  subgraph OUT["Resultado en el PR"]
+    OK["Verde: reporte"]
+    KO["Rojo: reporte y logs"]
+  end
+
+  PR --> QA
+  QA --> DB
+  SRC --> API
+  DB --> API
+  TD --> WEB
+  API --> WEB
+  WEB --> PW
+  SPEC --> PW
+  PW -- "pasan" --> OK
+  PW -- "fallan" --> KO
 ```
 
 ## Qué prueba
