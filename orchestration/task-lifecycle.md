@@ -3,10 +3,14 @@
 Una ejecución trata **una sola** incidencia. Si se mezclan varias, se separan en
 ramas y PR independientes.
 
-```
-/task-inbox ──> /task-audit ──> /task-start ──> /task-implement ──> /task-verify ──> /task-pr
-                                                      ▲                   │
-                                                      └───── si falla ────┘
+```mermaid
+flowchart LR
+  I["/task-inbox"] --> A["/task-audit"]
+  A --> S["/task-start"]
+  S --> M["/task-implement"]
+  M --> V["/task-verify"]
+  V -- "si falla" --> M
+  V -- "en verde" --> P["/task-pr"]
 ```
 
 | Etapa | Comando | Agente | ¿Edita? | ¿Entrega? |
@@ -132,16 +136,16 @@ Detalle completo en [`context/orca.md`](../context/orca.md).
 
 Decidido el 2026-10-16: **automatico hasta la rama, supervisado desde el commit.**
 
-```
-vigilar Jira  ->  auditar  ->  ficha  ->  worktree + rama  ->  implementar
-                                                                    |
-                                                          [ EL AGENTE SE DETIENE ]
-                                                                    |
-                                              el usuario revisa el diff y lanza /task-pr
-                                                                    |
-                                                commit -> push -> PR -> Jira  (con confirmacion)
-                                                                    |
-                                                      merge: una persona en GitHub
+```mermaid
+flowchart TD
+  J["Vigilar Jira"] --> A["Auditar"]
+  A --> F["Ficha"]
+  F --> W["Worktree y rama"]
+  W --> C["Implementar"]
+  C --> X{{"El agente se detiene"}}
+  X --> U["El usuario revisa el diff y lanza /task-pr"]
+  U --> E["Commit, push, PR y Jira, con confirmación"]
+  E --> G["Merge: una persona en GitHub"]
 ```
 
 El agente **nunca** cruza la linea del commit por su cuenta. No es una convencion: en

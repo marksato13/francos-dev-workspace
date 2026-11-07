@@ -7,7 +7,7 @@ Auditado el 2026-09-28. Todos son carpetas hermanas de este workspace.
 - **Ruta:** `../backend-monolito-francos`
 - **Remoto:** `https://github.com/Proyecto-Aura/backend-monolito-francos.git` (privado)
 - **Rama base:** `develop` · **Nunca:** `main`
-- **Stack:** NestJS 11, Prisma 7, PostgreSQL 16, TypeScript, `pnpm@11.10.0`
+- **Stack:** NestJS 11, Prisma 7, PostgreSQL 17, TypeScript, `pnpm@11.10.0`
 - **Paquete:** `proyecto-monolito-francos` v0.0.1
 
 ### Módulos en `src/modules/`
@@ -81,8 +81,7 @@ Los clones viejos quedan obsoletos y no se borran:
 
 **Verificado:** el portal del cliente se migró de Next a Angular. `frontend-cliente-angular`
 tiene `angular.json` y conserva las ramas `feature/Crear-pedido`, `feature/Carrito-compras`, etc.,
-del repo Next, además de ramas nuevas `feature/OFT0-XXX-*`. El `CLAUDE.md` raíz sigue citando las
-rutas viejas: actualizarlo cuando el usuario lo pida.
+del repo Next, además de ramas nuevas `feature/OFT0-XXX-*`.
 
 Como no son mi responsabilidad, no los arreglo. Se consultan solo para entender
 qué contrato de API esperan antes de cambiar un endpoint.
@@ -90,9 +89,9 @@ qué contrato de API esperan antes de cambiar un endpoint.
 ## Este workspace
 
 - **Ruta:** `../francos-dev-workspace` (o la raíz, si OpenCode/Claude arranca aquí)
-- **Remoto:** `https://github.com/marksato13/francos-dev-workspace.git` (privado)
-- **Rama:** `main` — es un repo de planificación, no de producto, así que no
-  aplica Git Flow. Se commitea directo.
+- **Remoto:** `https://github.com/marksato13/francos-dev-workspace.git` (público)
+- **Rama:** se trabaja en `registro/entregas-oft0`; el usuario lleva los cambios a
+  `main` con un PR. Como el repo es público, nada sensible entra aquí.
 
 ## Aviso sobre el token de GitHub
 

@@ -60,7 +60,7 @@ reescriben archivos.
 - **La entrega.** Commit, push, PR y la sincronización con Jira se hacen desde
   `/task-pr`, con confirmación. `gh pr merge` está denegado: el merge lo hace una
   persona en GitHub.
-- **El frontend.** `../frontend-francos` y `../frontend-next-francos` son de otra
+- **El frontend.** `../frontend-angular-francos` y `../frontend-cliente-angular` son de otra
   persona y están denegados a la escritura. Si tu cambio rompe un contrato de
   API, **documéntalo como dependencia en la ficha y repórtalo**; no lo arregles.
 - **Los secretos.** El `.env` del backend está denegado a la lectura. No lo

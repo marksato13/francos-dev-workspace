@@ -6,9 +6,9 @@ incidencia Jira asignada al backend de Francos.
 
 ## Quién soy y qué me toca
 
-Soy el **desarrollador backend** del proyecto OFT0. Auditado el 2026-09-28:
-las 16 subtareas asignadas a mi cuenta son todas `Desarrollar backend`. Cero
-frontend, cero QA, cero diseño. Detalle en [`context/equipo.md`](context/equipo.md).
+Soy el **desarrollador backend** del proyecto OFT0. Auditado el 2026-11-06:
+tengo 16 subtareas asignadas, 12 `Desarrollar backend` y 4 de QA. Cero frontend
+y cero diseño. Detalle en [`context/equipo.md`](context/equipo.md).
 
 Mi superficie real de trabajo es `backend-monolito-francos`. Los frontends son
 de otra persona: los leo para entender contratos de API, **nunca los edito**.
@@ -19,9 +19,9 @@ Todos son hermanos de esta carpeta. Rutas relativas desde la raíz del workspace
 
 | Repo | Ruta | Stack | ¿Puedo editar? |
 | --- | --- | --- | --- |
-| `backend-monolito-francos` | `../backend-monolito-francos` | NestJS 11 + Prisma 7 + PostgreSQL 16 | **Sí** |
-| `frontend-francos` | `../frontend-francos` | Angular | No (solo lectura) |
-| `frontend-next-francos` | `../frontend-next-francos` | Next + React | No (solo lectura) |
+| `backend-monolito-francos` | `../backend-monolito-francos` | NestJS 11 + Prisma 7 + PostgreSQL 17 | **Sí** |
+| `frontend-angular-francos` | `../frontend-angular-francos` | Angular, portal de la empresa | No (solo lectura) |
+| `frontend-cliente-angular` | `../frontend-cliente-angular` | Angular, portal del cliente | No (solo lectura) |
 
 Detalle, remotos y advertencias en [`context/repos.md`](context/repos.md).
 

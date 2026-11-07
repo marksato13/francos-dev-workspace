@@ -8,8 +8,8 @@ historial de `Proyecto-Aura/backend-monolito-francos`.
 
 ## Mi rol: backend
 
-Las 12 subtareas asignadas a mi cuenta son todas `Desarrollar backend`. Cero frontend, cero
-QA, cero diseño. Mi superficie es `backend-monolito-francos`.
+Tengo 16 subtareas asignadas (2026-11-06): 12 `Desarrollar backend` y 4 de QA. Cero frontend y
+cero diseño. Mi superficie es `backend-monolito-francos`.
 
 ## Quién es quién
 

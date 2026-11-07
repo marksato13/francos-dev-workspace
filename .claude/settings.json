@@ -4,7 +4,9 @@
     "additionalDirectories": [
       "../backend-monolito-francos",
       "../frontend-francos",
-      "../frontend-next-francos"
+      "../frontend-next-francos",
+      "../frontend-angular-francos",
+      "../frontend-cliente-angular"
     ],
     "allow": [
       "Bash(git status:*)",
@@ -45,6 +47,8 @@
       "Read(../backend-monolito-francos/**)",
       "Read(../frontend-francos/**)",
       "Read(../frontend-next-francos/**)",
+      "Read(../frontend-angular-francos/**)",
+      "Read(../frontend-cliente-angular/**)",
       "Edit(../backend-monolito-francos/**)",
       "Write(../backend-monolito-francos/**)",
       "mcp__jira__getJiraIssue",
@@ -122,6 +126,10 @@
       "Write(../frontend-francos/**)",
       "Edit(../frontend-next-francos/**)",
       "Write(../frontend-next-francos/**)",
+      "Edit(../frontend-angular-francos/**)",
+      "Write(../frontend-angular-francos/**)",
+      "Edit(../frontend-cliente-angular/**)",
+      "Write(../frontend-cliente-angular/**)",
       "Edit(../backend-monolito-francos/.env)",
       "Edit(../backend-monolito-francos/node_modules/**)",
       "Edit(../backend-monolito-francos/pnpm-lock.yaml)",

@@ -43,7 +43,7 @@ el criterio de aceptación.
    detalle.
 
 6. **Revisa el impacto en frontend.** Si el cambio altera un contrato de API,
-   busca en `../frontend-francos` y `../frontend-next-francos` quién lo consume y
+   busca en `../frontend-angular-francos` y `../frontend-cliente-angular` quién lo consume y
    repórtalo como dependencia. No propongas editarlos: no son nuestros.
 
 ## Cómo entregas
