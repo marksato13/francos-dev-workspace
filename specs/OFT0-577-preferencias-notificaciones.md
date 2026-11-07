@@ -114,12 +114,12 @@ Ejecutado en local sobre los cambios sin commit, base `ce73d7d`.
 - [x] `pnpm build`
 - [x] `pnpm lint:check`
 - [ ] `pnpm format:check`
-- [x] `pnpm test`: 206 suites, 1551 pruebas; se corrió antes del último ajuste de formato
+- [x] `pnpm test`: 206 suites, 1551 pruebas
 - [x] `pnpm test:e2e`: 49 suites, 1135 pruebas
 - [ ] `docker build` + smoke
 - [x] `pnpm exec prisma migrate status`
 - [x] `git diff --check`
-- [ ] Sin `.env`, secretos, `dist/`, caches ni logs en el diff
+- [x] Sin `.env`, secretos, `dist/`, caches ni logs en el diff
 
 No ejecutado y por qué:
 
@@ -127,7 +127,6 @@ No ejecutado y por qué:
   `prettier --check` sobre los archivos cambiados, en verde.
 - `docker build`: el diff no toca `Dockerfile`, dependencias ni arranque. Lo cubre
   el CI.
-- Revisión final del diff: se hace antes del commit, en `/task-pr`.
 
 Notas de entorno:
 
