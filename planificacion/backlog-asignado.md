@@ -5,8 +5,8 @@ Fuente: Jira `oracle-f1.atlassian.net`, proyecto `OFT0`, consulta
 
 ## Resumen
 
-**16 subtareas: 12 `Desarrollar backend` y 4 de QA.** 9 en *Listo*, 1 en *En
-revisión*, 1 en *En curso* y 5 en *Por hacer*, 2 de ellas por eliminar.
+**16 subtareas: 12 `Desarrollar backend` y 4 de QA.** 10 en *Listo*, 1 en *En
+revisión* y 5 en *Por hacer*, 2 de ellas por eliminar.
 
 ## Desarrollo backend
 
@@ -23,14 +23,14 @@ revisión*, 1 en *En curso* y 5 en *Por hacer*, 2 de ellas por eliminar.
 | `OFT0-537` | HU-B-009 Seleccionar tipo de comprobante | 3 | Listo | [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) | yo |
 | `OFT0-541` | HU-B-010 Generar comprobante | 3 | Por hacer | — | bloqueada por `OFT0-297` |
 | `OFT0-573` | HU-B-018 Actualizar dirección de entrega | 6 | Por hacer | — | — |
-| `OFT0-577` | HU-B-019 Gestionar preferencias de notificaciones | 6 | En curso | — | yo, rama `feature/OFT0-577-preferencias-notificaciones` |
+| `OFT0-577` | HU-B-019 Gestionar preferencias de notificaciones | 6 | En revisión | [#111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111) | yo |
 
 ## QA
 
 | Subtarea | Alcance | Sprint | Jira | PR |
 | --- | --- | --- | --- | --- |
-| `OFT0-581` | Entorno efímero y humo E2E | 6 | En revisión | [#103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103), falta aprobación |
-| `OFT0-582` | Contrato de la API, IDOR y datos inválidos | 6 | Por hacer | necesita el merge de #103 |
+| `OFT0-581` | Entorno efímero y humo E2E | 6 | Listo | [#103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103) MERGED 2026-11-07 |
+| `OFT0-582` | Contrato de la API, IDOR y datos inválidos | 6 | Por hacer | desbloqueada |
 | `OFT0-583` | Playwright completo y bots sintéticos | 6 | Por hacer | descartada: por eliminar en Jira |
 | `OFT0-584` | Triage con IA | 6 | Por hacer | descartada: por eliminar en Jira |
 

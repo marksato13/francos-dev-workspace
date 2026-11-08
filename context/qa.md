@@ -1,9 +1,13 @@
 # Pipeline de QA
 
 Entregado por `OFT0-581` en el
-[PR #103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103), aún
-sin fusionar. El job `qa-e2e` corre en cada PR hacia `develop`, junto al CI
-existente. Es informativo: no impide un merge.
+[PR #103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103),
+fusionado en `develop` el 2026-11-07. El job `qa-e2e` corre en cada PR hacia
+`develop`, junto al CI existente. Es informativo: no impide un merge.
+
+Primera tarea real probada así: `OFT0-577`, PR
+[#111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111), con
+`qa-e2e` en verde.
 
 ```mermaid
 flowchart TD
@@ -62,5 +66,4 @@ flowchart TD
 
 ## Pendiente
 
-`OFT0-582` añade contrato de la API, IDOR y datos inválidos después del merge del
-PR #103.
+`OFT0-582` añade contrato de la API, IDOR y datos inválidos. Ya no está bloqueada.

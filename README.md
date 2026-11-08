@@ -44,9 +44,8 @@ flowchart LR
 
 | Estado | Subtareas |
 | --- | --- |
-| Listo | 9: `357`, `409`, `473`, `485`, `493`, `521`, `529`, `537`, `557` |
-| En revisión | `581` QA: entorno y humo E2E, [PR #103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103) |
-| En curso | `577` Preferencias de notificaciones |
+| Listo | 10: `357`, `409`, `473`, `485`, `493`, `521`, `529`, `537`, `557`, `581` |
+| En revisión | `577` Preferencias de notificaciones, [PR #111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111) |
 | Por hacer | `541`, `573`, `582` |
 | Por eliminar | `583`, `584`: pasos de QA descartados |
 
