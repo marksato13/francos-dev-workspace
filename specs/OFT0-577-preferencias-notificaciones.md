@@ -154,4 +154,4 @@ QA del PR #103 (`f854825`) sobre este código, con `qa/` en copia temporal:
 | --- | --- |
 | PR | [#111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111), commit `ca10cfd` |
 | Estado del CI | Verde: build, lint, test-unit, test-e2e, docker, security y qa-e2e |
-| Jira | En revisión, comentario 10167 |
+| Jira | Listo: PR fusionado el 2026-11-10 en `728f83f` |

@@ -1,12 +1,12 @@
-# Backlog asignado — auditado 2026-11-06
+# Backlog asignado — auditado 2026-11-10
 
 Fuente: Jira `oracle-f1.atlassian.net`, proyecto `OFT0`, consulta
 `assignee = currentUser() AND issuetype = Subtask`, y PR del backend en GitHub.
 
 ## Resumen
 
-**16 subtareas: 12 `Desarrollar backend` y 4 de QA.** 10 en *Listo*, 1 en *En
-revisión* y 5 en *Por hacer*, 2 de ellas por eliminar.
+**16 subtareas a mi nombre: 11 `Desarrollar backend` y 5 de QA.** 12 en *Listo* y 4 en *Por hacer*,
+2 de ellas por eliminar. `OFT0-541` pasó a Roxwell.
 
 ## Desarrollo backend
 
@@ -21,16 +21,16 @@ revisión* y 5 en *Por hacer*, 2 de ellas por eliminar.
 | `OFT0-557` | HU-B-014 Solicitar reembolso | 2 | Listo | [#55](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/55) | yo |
 | `OFT0-409` | HU-A-023 Procesar pedidos para entrega | 3 | Listo | [#49](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/49) | yo |
 | `OFT0-537` | HU-B-009 Seleccionar tipo de comprobante | 3 | Listo | [#80](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/80) | yo |
-| `OFT0-541` | HU-B-010 Generar comprobante | 3 | Por hacer | — | bloqueada por `OFT0-297` |
+| `OFT0-541` | HU-B-010 Generar comprobante | 3 | Listo | [#113](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/113) MERGED 2026-11-10 | **Roxwell** (`bersdecker`); reasignada a él en Jira |
 | `OFT0-573` | HU-B-018 Actualizar dirección de entrega | 6 | Por hacer | — | — |
-| `OFT0-577` | HU-B-019 Gestionar preferencias de notificaciones | 6 | En revisión | [#111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111) | yo |
+| `OFT0-577` | HU-B-019 Gestionar preferencias de notificaciones | 6 | Listo | [#111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111) MERGED 2026-11-10 | yo |
 
 ## QA
 
 | Subtarea | Alcance | Sprint | Jira | PR |
 | --- | --- | --- | --- | --- |
 | `OFT0-581` | Entorno efímero y humo E2E | 6 | Listo | [#103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103) MERGED 2026-11-07 |
-| `OFT0-586` | Humo E2E del portal de la empresa | 6 | En revisión | [#114](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/114) |
+| `OFT0-586` | Humo E2E del portal de la empresa | 6 | Listo | [#114](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/114) MERGED 2026-11-10 |
 | `OFT0-582` | Contrato de la API, IDOR y datos inválidos | 6 | Por hacer | desbloqueada |
 | `OFT0-583` | Playwright completo y bots sintéticos | 6 | Por hacer | descartada: por eliminar en Jira |
 | `OFT0-584` | Triage con IA | 6 | Por hacer | descartada: por eliminar en Jira |
@@ -44,7 +44,7 @@ Pipeline descrito en [`context/qa.md`](../context/qa.md).
 | 1 | 14-sep → 25-sep | active, vencido | 357 |
 | 2 | 28-sep → 09-oct | future | 473, 485, 493, 521, 529, 557 |
 | 3 | 12-oct → 16-oct | future | 409, 537, 541 |
-| 6 | 02-nov → 06-nov | future | 573, 577, 581, 582, 583, 584 |
+| 6 | 02-nov → 06-nov | future | 573, 577, 581, 582, 583, 584, 586 |
 
 ## Subtareas que ya no son mías
 

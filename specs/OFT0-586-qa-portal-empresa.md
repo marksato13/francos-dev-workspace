@@ -102,4 +102,4 @@ Local, base limpia, commit `0277432`, tienda `5ac2941` y portal `cd2cd3f`.
 | --- | --- |
 | PR | [#114](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/114), commit `0277432` |
 | Estado del CI | Verde: build, lint, test-unit, test-e2e, docker, security y qa-e2e |
-| Jira | En revisión |
+| Jira | Listo: PR fusionado el 2026-11-10 en `dc6a581`; QA en `develop` 4 de 4 |
