@@ -23,13 +23,14 @@ flowchart TD
   end
 
   subgraph R3["Repo: frontend-angular-francos"]
-    PE["Portal de la empresa<br/>no participa en QA"]
+    PE["Rama develop del portal<br/>solo lectura, desde OFT0-586"]
   end
 
   subgraph RUN["Máquina temporal de GitHub Actions"]
     DB["3. PostgreSQL 17<br/>Prisma: migraciones y datos demo"]
     API["4. API NestJS<br/>puerto 3000, Culqi simulado"]
     WEB["5. Tienda Angular<br/>serve, puerto 4200"]
+    POR["5b. Portal de la empresa<br/>serve, puerto 4201"]
     PW["6. Playwright abre Chromium<br/>login y catálogo"]
   end
 
@@ -44,7 +45,10 @@ flowchart TD
   DB --> API
   TD --> WEB
   API --> WEB
+  PE --> POR
+  API --> POR
   WEB --> PW
+  POR --> PW
   SPEC --> PW
   PW -- "pasan" --> OK
   PW -- "fallan" --> KO
@@ -56,6 +60,8 @@ flowchart TD
 | --- | --- |
 | Login y catálogo | `cliente_prueba` entra, llega a `/catalogo` y ve un producto que viene de la API real |
 | Contraseña incorrecta | La API responde 401, la pantalla muestra «Credenciales inválidas» y sigue en login |
+| Portal: login del admin | `admin` entra, llega a `/home` y ve «Configuración», que solo llega desde la API. PR #114, OFT0-586 |
+| Portal: contraseña incorrecta | 401, «Credenciales inválidas» y sigue en el login. PR #114, OFT0-586 |
 
 ## Límites
 

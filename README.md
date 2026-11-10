@@ -45,7 +45,7 @@ flowchart LR
 | Estado | Subtareas |
 | --- | --- |
 | Listo | 10: `357`, `409`, `473`, `485`, `493`, `521`, `529`, `537`, `557`, `581` |
-| En revisión | `577` Preferencias de notificaciones, [PR #111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111) |
+| En revisión | `577` Preferencias de notificaciones, [PR #111](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/111); `586` QA del portal de la empresa, [PR #114](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/114) |
 | Por hacer | `541`, `573`, `582` |
 | Por eliminar | `583`, `584`: pasos de QA descartados |
 
