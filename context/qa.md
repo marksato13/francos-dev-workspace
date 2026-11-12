@@ -72,4 +72,4 @@ flowchart TD
 
 ## Pendiente
 
-`OFT0-582` añade contrato de la API, IDOR y datos inválidos. Ya no está bloqueada.
+`OFT0-582` añade el job `qa-contrato`: compara `/api/docs-json` del PR con el de `develop` (oasdiff) y da rojo si un cambio rompe a los frontends. IDOR y datos inválidos ya los cubren los e2e de Jest. PR #117, en revisión.

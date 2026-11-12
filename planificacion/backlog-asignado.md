@@ -31,7 +31,7 @@ Fuente: Jira `oracle-f1.atlassian.net`, proyecto `OFT0`, consulta
 | --- | --- | --- | --- | --- |
 | `OFT0-581` | Entorno efímero y humo E2E | 6 | Listo | [#103](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/103) MERGED 2026-11-07 |
 | `OFT0-586` | Humo E2E del portal de la empresa | 6 | Listo | [#114](https://github.com/Proyecto-Aura/backend-monolito-francos/pull/114) MERGED 2026-11-10 |
-| `OFT0-582` | Contrato de la API, IDOR y datos inválidos | 6 | Por hacer | desbloqueada |
+| `OFT0-582` | Contrato de la API, IDOR y datos inválidos | 6 | En revisión | PR #117, CI verde |
 | `OFT0-583` | Playwright completo y bots sintéticos | 6 | Por hacer | descartada: por eliminar en Jira |
 | `OFT0-584` | Triage con IA | 6 | Por hacer | descartada: por eliminar en Jira |
 
