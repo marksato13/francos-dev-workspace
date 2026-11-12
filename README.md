@@ -67,6 +67,7 @@ Detalle y PR de cada una en
 | [`planificacion/`](planificacion/) | Backlog y sprints |
 | [`specs/`](specs/) | Una ficha por incidencia, desde `TEMPLATE.md` |
 | [`orchestration/task-lifecycle.md`](orchestration/task-lifecycle.md) | Ciclo completo y permisos |
+| [`context/defensa.md`](context/defensa.md) | Guía de defensa: mis ramas, arquitectura de los 3 repos y preguntas |
 | [`context/qa.md`](context/qa.md) | Pipeline de QA |
 | [`context/repos.md`](context/repos.md) | Repos, scripts y variables de entorno |
 | [`context/equipo.md`](context/equipo.md) y [`context/jira.md`](context/jira.md) | Equipo, tablero y trampas conocidas |
